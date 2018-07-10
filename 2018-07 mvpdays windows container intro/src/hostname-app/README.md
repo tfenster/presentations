@@ -1,0 +1,1 @@
+based on https://github.com/sixeyed/docker-windows-workshop/tree/master/part-1/hostname-app

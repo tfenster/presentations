@@ -1,0 +1,1 @@
+based on https://github.com/Microsoft/dotnet-framework-docker/tree/master/samples/aspnetapp
