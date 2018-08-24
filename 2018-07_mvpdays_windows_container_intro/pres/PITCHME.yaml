@@ -1,0 +1,17 @@
+theme : "white"
+
+theme-override : theme/infoma.css
+
+transition: "none"
+
+backgroundTransition: "none"
+
+highlightTheme: "darkula"
+
+height: "100%"
+
+width: "100%"
+
+slideNumber: "false"
+
+center: "false"
