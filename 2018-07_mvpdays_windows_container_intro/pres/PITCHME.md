@@ -1,14 +1,3 @@
----
-theme : "white"
-customTheme: "theme/infoma"
-transition: "none"
-backgroundTransition: "none"
-highlightTheme: "darkula"
-height: "100%"
-width: "100%"
-slideNumber: "false"
-center: "false"
----
 
 #### Practical samples<br />Docker containers<br />on Windows
 ##### Tobias Fenster<br />July 18, 2018
