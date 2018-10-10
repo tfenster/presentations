@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>RevealJS : c:\Users\tfenster\OneDrive - VINCI Energies\Infoma\Events\2018-10 AI+BizApps Hackathon\pres\pres.md</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css" id="theme">
+         <link rel="stylesheet" href="theme/infoma.css" id="theme">
+       
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/darkula.css">
+
+        
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style type="text/css">
+            @page {    
+              margin: 0;
+              size: auto; 
+            }
+        </style>
+
+        <script>
+         if(window.location.search.match( /print-pdf-now/gi )) {
+           window.print();
+         }
+      </script>
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template"><!-- .element: class="initialslide" -->
+
+#### D365 Business Central<br />Container und APIs<br />AI meets BizApps
+##### Tobias Fenster<br />München, 13.10.2018
+</script></section><section  data-markdown><script type="text/template">
+
+## Vorstellung und Agenda
+
+*Tobias Fenster*<br />
+Technischer Leiter bei Axians Infoma<br />
+Microsoft MVP für Business Applications<br />
+[@tobiasfenster](https://twitter.com/tobiasfenster) und https://navblog.axians-infoma.de<br />
+&nbsp;<br />&nbsp;<br />
+*Agenda*
+- Überblick: D365 Business Central *custom App Typen und Betrieb im Container*
+- Hands on 1: *Azure Container Instance* mit D365 BC
+- Hands on 2: *API Client* gegen BC verbinden (Connect App)
+- Hands on 3: Container *konfigurieren und Verhalten anpassen*
+- Hands on 4: Business Central *Challenges*
+</script></section><section  data-markdown><script type="text/template">
+
+### Überblick: D365 Business Central<br />Custom App Typen
+
+- Microsoft unterscheidet drei Arten von Apps:
+- *Connect App*: Verbunden über *Schnittstelle / API*, App selbst aber außerhalb BC
+  - Anbindung über *OData / REST oder SOAP* mit Azure AD (produktiv) oder Basic Auth / WebService Key (Entwicklung)
+  - Entwicklung in *beliebiger Programmiersprache*
+- *Add-on App*: Erweitert BC um *eigene Datenstrukturen und Logik*, interagiert mit der bereits vorhandenen Business Logik über Events
+  - Umsetzung über sog. *Extensions*
+  - Entwicklung in *AL mit Visual Studio Code*
+- *Embed App*: *Tief integrierte Änderungen und Anpassungen* an Strukturen und Logik
+  - Umsetzung ebenfalls über *Extensions*, teilweise aktuell noch *direkte Codeänderungen* notwendig
+  - Entwicklung bis 2020 noch teilweise in *C/AL mit C/SIDE*, ansonsten auch *AL mit VS Code*
+</script></section><section  data-markdown><script type="text/template">
+
+### Einschub<br />Was sind Docker Container und was bringen sie?
+
+- **Docker**: Führende *cross-platform* Umgebung für *Software Container* (einzige Option unter Windows)
+- Was sind Docker *Container, Image und Host*?
+  - Ein *Image* ist ein *Template* mit minal notwendigem Betriebssystem, Bibliotheken und Anwendungslibraries und wird über ein Dockerfile definiert
+  - Ein *Container* ist die *Instanz eines Image* mit einer nicht veränderbaren Basis aus dem Image und darauf allen Änderungen
+  - Ein Container ist *keine VM*, insbesondere hat er *keine GUI* und kann *nicht per RDP* verbunden werden
+  - Ein Docker *Host* ist die physische oder virtuelle Maschine, auf der *Container laufen*
+- Wesentliche Vorteile:
+  - *Einfacher* Weg, um Deployments / Konfigurationen *sehr stabil und sicher reproduzierbar* darzustellen (kein "works here", vermeidet Gap Dev vs. Ops)
+  - *Bessere Ressourcennutzung* als mit klassischen VMs, insbes. da es kein Guest OS gibt, sondern der Kernel des Host *direkt verwendet* wird
+  - Großes Ökosystem vorhandener Images
+</script></section><section  data-markdown><script type="text/template">
+
+### Überblick: D365 Business Central<br />Betrieb im Container
+
+- Microsoft bietet Container Images für *NAV ab 2015* und für *Business Central als Sandbox für die Cloud-Variante sowie direkt für On-Prem*
+- Aktuell nur für *Entwicklung und Test*, nicht für Produktion freigegeben
+- Betrieb auf *eigenem Docker Host*:
+  - Unter *Windows 10* funktioniert *Docker Community Edition*: Neuer, aber instabiler
+  - Unter *Windows Server 2016/19* funktioniert *Docker Enterprise Edition* (kostenlos in Windows Server enthalten): Etwas älter, aber deutlich stabiler
+  - Wenn der eigene Laptop der Docker Host ist: Evtl. Betrieb einer Windows-Server-VM mit Docker
+- Betrieb auf *Azure*:
+  - Diverse Variante, u.a. *Azure Container Instances* als sehr schneller, einfacher Weg
+</script></section><section  data-markdown><script type="text/template">
+
+## Agenda
+
+- Überblick: D365 Business Central *custom App Typen und Betrieb im Container*
+- **Hands on 1: Azure Container Instance mit D365 BC**
+- Hands on 2: *API Client* gegen BC verbinden (Connect App)
+- Hands on 3: Container *konfigurieren und Verhalten anpassen*
+- Hands on 4: Business Central *Challenges*
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 1<br />Azure Container Instance mit D365 BC
+
+<div class="container">
+  <div class="col">
+    <img src="img/container-morph2.gif" class="maxheight">
+  </div>
+</div>
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 1<br />Azure Container Instance mit D365 BC
+
+- Im *Azure Portal*: Neue *Container Instance*
+- Schritt 1 *Basics* ausfüllen und als *Image microsoft/bcsandbox:de* verwenden
+- Schritt 2 *Configuration*:
+  - OS Type: Windows / Number of cores: 2 / Memory (GB): 7
+  - DNS name: eindeutiger Wert / Port: 443 / Open additional ports: Yes / Port: 7049 / Port: 8080
+  - Environment variable: "accept_eula":"Y"
+  - Rest Default
+- Schritt 3 *bestätigen* und warten...
+- Im Azure Portal über *Container Instance &rarr; Containers &rarr; Events* warten bis "Pulling" beendet ist (5-10 Minute) und Container Status "Running" bekommt. Zwischenzeitliche Failures beim Pulling sind unbedenklich, wird automatisch erneut versucht
+- Unter *Overview* den *FQDN* suchen und mit `http://<fqdn>:8080` auf Dateien bzw. `https://<fqdn>/nav` auf BC zugreifen
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 1<br />Azure Container Instance mit D365 BC
+
+- Schnellere (und flexiblere) Alternative: *Azure Quickstart Template* für NAV / BC unter https://ve.link/bc_aci &rarr; In Azure bereitstellen
+- Resource group auswählen
+- Dns Prefix (muss *eindeutig* sein) und Lets Encrypt Mail angeben (keine Registrierung notwendig) &rarr; *Valides SSL-Zertifikat*
+- Nav Release auf microsoft/bcsandbox:de ändern
+- Username und Password vergeben, Cpu Cores auf 4, Memory in Gb auf 8, Accept Eula auf Y
+- Ebenfalls bestätigen und per Azure Portal Fortschritt verfolgen
+- Hat neben Port 443, 8080 und 7049 auch *7048* (OData Service) offen
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 1<br />Azure Container Instance mit D365 BC
+
+- Per *Azure CLI* z.B. in der [Cloud Shell](https://shell.azure.com) automatisierbar
+
+```Shell
+az group deployment create --name mydeployment --resource-group test \
+  --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-aci-dynamicsnav/azuredeploy.json \
+  --parameters dnsPrefix=tst123tfe letsEncryptMail=tobias.fenster@axians-infoma.de \
+    navRelease=microsoft/bcsandbox:de username=admin password=Passw0rd* \
+    cpuCores=4 memoryInGb=8 acceptEula=Y
+```
+<br />
+- Unbedingt **dnsPrefix und eMail-Adresse anpassen...**
+</script></section><section  data-markdown><script type="text/template">
+
+## Agenda
+
+- Überblick: D365 Business Central *custom App Typen und Betrieb im Container*
+- Hands on 1: *Azure Container Instance* mit D365 BC
+- **Hands on 2: API Client gegen BC verbinden (Connect App)**
+- Hands on 3: Container *konfigurieren und Verhalten anpassen*
+- Hands on 4: Business Central *Challenges*
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 2<br />API Client gegen BC verbinden (Connect App)
+
+- *Dokumentation zur API* unter https://docs.microsoft.com/en-us/dynamics-nav/fin-graph/
+- Über einfache REST Requests *Daten erzeugen, lesen, ändern und löschen*
+- Komplexe Aktivitäten über *Bound Actions* aufrufen (z.B. ein Buch.-Blatt buchen)
+<br />&nbsp;<br />
+- Einfacher Weg zur *Generierung* von Beispiel-REST-Aufrufen:
+  - *Visual Studio Code* öffnen (ggf. vorher von https://code.visualstudio.com/download herunterladen)
+  - Extension *ALRunner* suchen und installieren
+  - Ctrl+Shift+P &rarr; ALRunner: *Generate an API Client for Business Central*, dann URL `https://<fqdn>/nav`, Benutzername und Passwort eingeben
+- Wer *nicht* den Weg über das *Template* zum Erstellen des Containers gegangen ist oder es nicht geklappt hat: Ctrl+Shift+P &rarr; *ALRunner: Go API on Azure!*
+  - Erstellt eine Azure Container Instance anhand des *Template* und *generiert die Beispiel-REST-Aufrufe*
+</script></section><section  data-markdown><script type="text/template">
+
+## Agenda
+
+- Überblick: D365 Business Central *custom App Typen und Betrieb im Container*
+- Hands on 1: *Azure Container Instance* mit D365 BC
+- Hands on 2: *API Client* gegen BC verbinden (Connect App)
+- **Hands on 3: Container konfigurieren und Verhalten anpassen**
+- Hands on 4: Business Central *Challenges*
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 3<br />Container konfigurieren und Verhalten anpassen
+
+- Im Azure Portal über *Container Instance &rarr; Containers &rarr; Connect* eine Verbindung starten
+- Als *Start Up Command* das Eingabefeld auswählen und `powershell` eingeben
+- `c:\run\prompt.ps1` ausführen (importiert die BC Cmdlets)
+
+```Shell
+Windows PowerShell
+Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+
+PS C:\> C:\Run\Prompt.ps1
+Welcome to the NAV Container PowerShell prompt
+```
+
+- z.B. Get-NAVServerConfiguration NAV ausführen, um *aktuelle Konfig* anzuzeigen
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 3<br />Container konfigurieren und Verhalten anpassen
+
+- NAV Server Instanz im Container *konfigurieren*: OData Services *deaktivieren*
+
+```Shell
+PS C:\Run> Set-NAVServerConfiguration -KeyName ODataServicesEnabled -KeyValue false NAV
+WARNING: The new settings value will not take effect util you stop and restart the service.
+PS C:\Run> Restart-NAVServerInstance NAV
+
+ServerInstance : MicrosoftDynamicsNavServer$NAV
+DisplayName    : Microsoft Dynamics NAV Server [NAV]
+State          : Running
+ServiceAccount : NT AUTHORITY\SYSTEM
+Version        : 13.0.24623.24800
+Default        : True
+```
+
+- OData Services *aktivieren* funktioniert identisch, nur `-KeyValue true` und anschließend ebenfalls *Restart*
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 3<br />Container konfigurieren und Verhalten anpassen
+
+- Konfigurationseinstellungen beim *Start mitgeben* über sog. Docker environment variables wie z.B. `customNavSettings=ODataServicesEnabled=false`
+- Alle Basis-Scripts im Container (https://github.com/microsoft/nav-docker) über *gleichnamige Dateien* in c:\run\my überschreibbar
+  - Beim Start können .zip Dateien *heruntergeladen und in den Ordner kopiert* werden, z.B. `folders=c:\run\my=https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip`
+- Genauso z.B. eigene DLL Libraries oder andere notwendige Dateien beim Start in Container bringen: `folders:c:\temp=https://www.axians-infoma.de/logo.gif`
+- Wird im Quickstart Templat verwendet, um obenstehendes Script für LetsEncrypt-Zertifikate einzubinden und API Services zu aktivieren
+</script></section><section  data-markdown><script type="text/template">
+
+## Agenda
+
+- Überblick: D365 Business Central *custom App Typen und Betrieb im Container*
+- Hands on 1: *Azure Container Instance* mit D365 BC
+- Hands on 2: *API Client* gegen BC verbinden (Connect App)
+- Hands on 3: Container *konfigurieren und Verhalten anpassen*
+- **Hands on 4: Business Central Challenges**
+</script></section><section  data-markdown><script type="text/template">
+
+### Hands on 4<br />Business Central Challenges
+
+- https://blogs.msdn.microsoft.com/hackathonchallenges/
+- Nicht von mir, erstellt von Freddy Kristiansen
+- Voraussetzung: *AL extension* aus dem Container herunterladen (`http://<fqdn>:8080`) und in Visual Studio Code installieren
+- Selbst versuchen, aber wer nicht weiter kommt: Ganz unten *Cheat Sheets* und unter dem Namen sind die Passwörter in "weißer Schrift auf weißem Grund"
+</script></section><section  data-markdown><script type="text/template">
+
+<!-- .element: class="finalslide" -->
+
+#### Welche Fragen darf ich beantworten?
+
+##### Kontaktdaten:<br />tobias.fenster@axians-infoma.de<br />+49 731 1551-964
+</script></section></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+              { src: 'plugin/math/math.js', async: true }
+            ];
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default',
+              dependencies: deps
+            };
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+            var options = {
+  "notesSeparator": "note:",
+  "separator": "^[\r\n?|\n]---[\r\n?|\n]$",
+  "verticalSeparator": "^[\r\n?|\n]--[\r\n?|\n]$",
+  "theme": "white",
+  "highlightTheme": "darkula",
+  "controls": true,
+  "progress": true,
+  "slideNumber": "false",
+  "history": true,
+  "keyboard": true,
+  "overview": true,
+  "center": "false",
+  "touch": true,
+  "loop": false,
+  "rtl": false,
+  "shuffle": false,
+  "fragments": true,
+  "embedded": false,
+  "help": true,
+  "showNotes": false,
+  "autoSlide": 0,
+  "autoSlideStoppable": true,
+  "mouseWheel": false,
+  "hideAddressBar": true,
+  "previewLinks": false,
+  "transition": "none",
+  "transitionSpeed": "default",
+  "backgroundTransition": "none",
+  "viewDistance": 3,
+  "parallaxBackgroundImage": "",
+  "parallaxBackgroundSize": "",
+  "parallaxBackgroundHorizontal": null,
+  "parallaxBackgroundVertical": null,
+  "slideExplorerEnabled": true,
+  "browserPath": null,
+  "customTheme": "theme/infoma",
+  "height": "100%",
+  "width": "100%",
+  "attributes": ""
+};
+            options = extend(defaultOptions, options, queryOptions);
+            Reveal.initialize(options);
+
+        </script>
+        
+    </body>
+</html>
