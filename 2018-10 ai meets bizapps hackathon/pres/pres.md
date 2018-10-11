@@ -6,7 +6,7 @@ backgroundTransition: "none"
 highlightTheme: "darkula"
 height: "100%"
 width: "100%"
-slideNumber: "false"
+showSlideNumber: "speaker"
 center: "false"
 ---
 <!-- .element: class="initialslide" -->
@@ -38,9 +38,11 @@ Microsoft MVP für Business Applications<br />
 - *Connect App*: Verbunden über *Schnittstelle / API*, App selbst aber außerhalb BC
   - Anbindung über *OData / REST oder SOAP* mit Azure AD (produktiv) oder Basic Auth / WebService Key (Entwicklung)
   - Entwicklung in *beliebiger Programmiersprache*
+  - Scope von Hands on 2
 - *Add-on App*: Erweitert BC um *eigene Datenstrukturen und Logik*, interagiert mit der bereits vorhandenen Business Logik über Events
   - Umsetzung über sog. *Extensions*
   - Entwicklung in *AL mit Visual Studio Code*
+  - Scope von Hands on 4
 - *Embed App*: *Tief integrierte Änderungen und Anpassungen* an Strukturen und Logik
   - Umsetzung ebenfalls über *Extensions*, teilweise aktuell noch *direkte Codeänderungen* notwendig
   - Entwicklung bis 2020 noch teilweise in *C/AL mit C/SIDE*, ansonsten auch *AL mit VS Code*
@@ -72,6 +74,23 @@ Microsoft MVP für Business Applications<br />
   - Wenn der eigene Laptop der Docker Host ist: Evtl. Betrieb einer Windows-Server-VM mit Docker
 - Betrieb auf *Azure*:
   - Diverse Variante, u.a. *Azure Container Instances* als sehr schneller, einfacher Weg
+- *Hochverfügbarkeit* ist analog zu "normalen" Installationen oder über Docker Swarm möglich
+
+---
+
+### Überblick: D365 Business Central<br />Struktur und Typen von Images
+
+- Images für *alle supporteten NAV / BC Releases* (technisch ab 2013R2 möglich) mit entsprechenden CUs und Länderversionen, z.B. `microsoft/dynamics-nav:2017-cu14-de`
+  - Image beinhaltet *SQL, NAV und IIS*, wobei alles außer NAV *deaktiviert* werden kann
+  - Jeder Container beinhaltet genau *1 NAV Instanz* (multi-tenancy ist möglich)
+  - Windows-Anmeldung ist möglich, bedarf aber etwas mehr Aufwand
+  - Windows Client und finsql sind per ClickOnce verfügbar
+- Sehr viel über *Parametrisierung* möglich, alternativ oder zusätzlich sind *Scripts im Image überschreibbar*
+- *Öffentlich* verfügbare Image-Typen: dynamics-nav, bcsandbox, bconprem
+  - *Geschlossene Beta* für bcsandbox (daily build) und bcsandbox-master (nächstes Release) über Collaborate
+  - Erläuterung (noch vor bconprem): [What Docker Image is right for you?](https://blogs.msdn.microsoft.com/freddyk/2018/04/16/which-docker-image-is-the-right-for-you/)
+- Informationen insbesondere hier: https://blogs.msdn.microsoft.com/freddyk/ und Unterstützung bei Fehlern hier https://github.com/microsoft/nav-docker
+  - Intro in Docker allgemein und NAV im Container: https://www.youtube.com/watch?v=9c5Yl51yXb8 
 
 ---
 
@@ -110,6 +129,12 @@ Microsoft MVP für Business Applications<br />
 
 ---
 
+<!-- .element: class="transitionslide" -->
+
+#### Hands on 1.1: ACI im Portal
+
+---
+
 ### Hands on 1<br />Azure Container Instance mit D365 BC
 
 - Schnellere (und flexiblere) Alternative: *Azure Quickstart Template* für NAV / BC unter https://ve.link/bc_aci &rarr; In Azure bereitstellen
@@ -140,6 +165,12 @@ az group deployment create --name mydeployment --resource-group test \
 
 ---
 
+<!-- .element: class="transitionslide" -->
+
+#### Hands on 1.2: ACI per Quickstart Template
+
+---
+
 ## Agenda
 
 - Überblick: D365 Business Central *custom App Typen und Betrieb im Container*
@@ -162,6 +193,12 @@ az group deployment create --name mydeployment --resource-group test \
   - Ctrl+Shift+P &rarr; ALRunner: *Generate an API Client for Business Central*, dann URL `https://<fqdn>/nav`, Benutzername und Passwort eingeben
 - Wer *nicht* den Weg über das *Template* zum Erstellen des Containers gegangen ist oder es nicht geklappt hat: Ctrl+Shift+P &rarr; *ALRunner: Go API on Azure!*
   - Erstellt eine Azure Container Instance anhand des *Template* und *generiert die Beispiel-REST-Aufrufe*
+
+---
+
+<!-- .element: class="transitionslide" -->
+
+#### Hands on 2: Client generieren
 
 ---
 
@@ -214,13 +251,19 @@ Default        : True
 
 ---
 
+<!-- .element: class="transitionslide" -->
+
+#### Hands on 3: OData Services (de-)aktivieren
+
+---
+
 ### Hands on 3<br />Container konfigurieren und Verhalten anpassen
 
 - Konfigurationseinstellungen beim *Start mitgeben* über sog. Docker environment variables wie z.B. `customNavSettings=ODataServicesEnabled=false`
 - Alle Basis-Scripts im Container (https://github.com/microsoft/nav-docker) über *gleichnamige Dateien* in c:\run\my überschreibbar
   - Beim Start können .zip Dateien *heruntergeladen und in den Ordner kopiert* werden, z.B. `folders=c:\run\my=https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip`
 - Genauso z.B. eigene DLL Libraries oder andere notwendige Dateien beim Start in Container bringen: `folders:c:\temp=https://www.axians-infoma.de/logo.gif`
-- Wird im Quickstart Templat verwendet, um obenstehendes Script für LetsEncrypt-Zertifikate einzubinden und API Services zu aktivieren
+- Wird im Quickstart Template verwendet, um obenstehendes Script für LetsEncrypt-Zertifikate einzubinden (folders-Parameter) und API Services zu aktivieren (customNavSettings)
 
 ---
 
