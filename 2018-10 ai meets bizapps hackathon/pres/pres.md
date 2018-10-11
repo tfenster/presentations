@@ -135,6 +135,8 @@ az group deployment create --name mydeployment --resource-group test \
 ```
 <br />
 - Unbedingt **dnsPrefix und eMail-Adresse anpassen...**
+<br />
+- Code und Präsentation unter https://ve.link/AIMeetsBizAppsHandson
 
 ---
 
