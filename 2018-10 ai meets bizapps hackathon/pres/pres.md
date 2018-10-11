@@ -73,7 +73,7 @@ Microsoft MVP für Business Applications<br />
   - Unter *Windows Server 2016/19* funktioniert *Docker Enterprise Edition* (kostenlos in Windows Server enthalten): Etwas älter, aber deutlich stabiler
   - Wenn der eigene Laptop der Docker Host ist: Evtl. Betrieb einer Windows-Server-VM mit Docker
 - Betrieb auf *Azure*:
-  - Diverse Variante, u.a. *Azure Container Instances* als sehr schneller, einfacher Weg
+  - Diverse Varianten, u.a. *Azure Container Instances* als sehr schneller, einfacher Weg
 - *Hochverfügbarkeit* ist analog zu "normalen" Installationen oder über Docker Swarm möglich
 
 ---
@@ -124,7 +124,7 @@ Microsoft MVP für Business Applications<br />
   - Environment variable: "accept_eula":"Y"
   - Rest Default
 - Schritt 3 *bestätigen* und warten...
-- Im Azure Portal über *Container Instance &rarr; Containers &rarr; Events* warten bis "Pulling" beendet ist (5-10 Minute) und Container Status "Running" bekommt. Zwischenzeitliche Failures beim Pulling sind unbedenklich, wird automatisch erneut versucht
+- Im Azure Portal über *Container Instance &rarr; Containers &rarr; Events* warten bis "Pulling" beendet ist (5-10 Minuten) und Container Status "Running" bekommt. Zwischenzeitliche Failures beim Pulling sind unbedenklich, wird automatisch erneut versucht
 - Unter *Overview* den *FQDN* suchen und mit `http://<fqdn>:8080` auf Dateien bzw. `https://<fqdn>/nav` auf BC zugreifen
 
 ---
