@@ -1,0 +1,311 @@
+/* Logo im Header und Trennlinien */
+.reveal .slide-background {
+    background-image: url(infoma_logo.svg), url(line.png), url(line.png);
+    background-size: 200px, calc(100% - 40px), calc(100% - 40px);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: right 30px top 30px, left 20px top 120px, left 20px bottom 60px;
+}
+
+/* Header einzeilig */
+.reveal h2 {
+    position: absolute;
+    top: -95px;
+    left: 7px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 35px !important;
+    font-weight: bold !important;
+    color: rgb(0, 94, 184) !important;
+    text-transform: uppercase;
+}
+
+/* Header zweizeilig */
+.reveal h3 {
+    position: absolute;
+    top: -120px;
+    left: 7px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 35px !important;
+    font-weight: bold !important;
+    color: rgb(0, 94, 184) !important;
+    text-transform: uppercase;
+    text-align: left;
+    height: 100px;
+}
+
+
+/* Titelfolie Titel */
+.reveal .initialslide h4 {
+    position: absolute;
+    bottom: 240px;
+    left: 30px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 52px !important;
+    font-weight: bold !important;
+    color: white !important;
+    text-transform: uppercase;
+} 
+
+/* Titelfolie Name/Ort */
+.reveal .initialslide h5 {
+    position: absolute;
+    bottom: 60px;
+    left: 25px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 35px !important;
+    font-weight: normal;
+    color: rgb(162,0,103) !important;
+    text-transform: none;
+} 
+
+/* Übergangsfolie Text */
+.reveal .transitionslide  h4 {
+    position: absolute;
+    top: 150px;
+    left: 120px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 72px !important;
+    font-weight: bold !important;
+    color: rgb(0, 94, 184) !important;
+    text-transform: uppercase;
+}
+
+/* Abschlussfolie Text */
+.reveal .finalslide h4 {
+    position: absolute;
+    top: 300px;
+    left: 30px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 65px !important;
+    font-weight: bold !important;
+    color: rgb(0, 94, 184) !important;
+    text-transform: uppercase;
+}
+
+/* Abschlussfolie Kontaktdaten */
+.reveal .finalslide h5 {
+    position: absolute;
+    bottom: -20px;
+    left: 25px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 45px !important;
+    font-weight: normal;
+    color: white !important;
+    text-transform: none;
+}
+
+/* Übergangsfolie */
+.reveal .slide-background.transitionslide {
+    background-image: url(infoma_logo.svg), url(line.png), url(transition_bg.png);
+    background-size: 200px, calc(100% - 40px), 100%;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: right 30px top 30px, left 20px top 120px, left 0px bottom 0px;
+}
+
+/* Abschlussfolie */
+.reveal .slide-background.finalslide {
+    background-image: url(final_bg_top.png), url(final_bg_bottom.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+}
+
+/* Titelfolie */
+.reveal .slide-background.initialslide  {
+    background-image: url(initial_bg_top.png), url(initial_bg_bottom.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+}
+
+/* Alles Sonderfolien */
+
+.reveal .initialslide .slide-number, .reveal .finalslide .slide-number, .reveal .transitionslide .slide-number {
+    display: none !important;
+}
+
+.reveal .initialslide .slides section, .reveal .finalslide .slides section, .reveal .transitionslide .slides section {
+    bottom: 0px !important;
+    padding-right: 200px;
+}
+
+/* Multi-Column Layout */
+.container{
+    display: flex;
+    height: 100%;
+}
+.col{
+    flex: 1;
+    text-align: center;
+    flex-grow: 10;
+    height: 100%;
+}
+.col-spacer {
+    flex-grow: 1;
+}
+
+.reveal .controls .controls-arrow {
+    display: none;
+}
+
+.reveal section img {
+    background: rgba(255, 255, 255, 0.12);
+    border: 0;
+    box-shadow: none;
+}
+
+.reveal section img.maxwidth {
+    max-width: calc(100% - 150px);
+}
+
+.reveal section img.maxheight {
+    max-height: calc(100% - 50px);
+}
+
+.reveal section img.centered {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.reveal em {
+    color: rgb(0, 94, 184);
+    font-style: normal;
+}
+
+.reveal strong {
+    color: rgb(162,0,103);
+    font-weight: inherit;
+}
+
+ul {
+    list-style-image: url('small-arrow-blue.png');
+    display: inherit !important;
+    line-height: 150% !important;
+}
+
+li {
+    padding-left: 0.5em !important;
+    padding-right: 2em !important;
+    padding-bottom: 0.7em !important;
+}
+
+.reveal li > ul {
+    list-style-image: none;
+    list-style-type: none;
+    line-height: 150% !important;
+    font-size: 95%;
+}
+
+.reveal li > ul > li::before {
+    content: "•"; color: rgb(0, 94, 184);
+    display: inline-block; width: 1em;
+    margin-left: -1em
+}
+
+.reveal li > ul > li {
+    font-size: 95%;
+    padding-left: 0.4em !important;
+    padding-right: 0 !important;
+    padding-bottom: 0.2em !important;
+    padding-top: 0.2em !important;
+}
+
+.reveal .slides > section > section { 
+    top: 0 !important;
+}
+
+
+.reveal .slides { 
+    text-align: left;
+    height: 100% !important;
+}
+
+.reveal {
+    color: rgb(135, 136, 138);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 35px;
+}
+
+.reveal .slides section{
+    margin-right: 200px;
+    margin-top: 60px;
+    height: calc(100% - 240px);
+}
+
+.reveal .slide-number {
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    z-index: 31;
+    font-family: arial;
+    font-size: 15px;
+    line-height: 1;
+    color: rgb(162,0,103);
+    background-color: #fff;
+    padding: 5px;
+}
+
+.reveal a {
+    text-decoration:none;
+    color: inherit;
+    padding-left: 15px;
+}
+  
+.reveal a:hover {
+    text-decoration:underline;
+    color: inherit;
+}
+  
+.reveal a:before {
+    position: absolute; /* Prevent underline of arrow */
+    left: -2px;
+    padding-left:2px; /* Add a little space between text and arrow */
+    content: "\21d1"; /* Unicode hex for &raquo; */
+    vertical-align: super;
+    font-size: 20px;
+}
+
+.reveal code {
+    font-size: 35px;
+}
+
+.reveal pre {
+    width: 100%;
+    margin: 20px;
+    font-size: 35px;
+    white-space: pre-wrap;
+}
+
+.reveal pre code {
+    max-height: 510px;
+}
+
+.reveal table th, .reveal table td {
+    text-align: center;
+    border: 3px solid;
+}
+
+.reveal table tbody tr:last-child th, .reveal table tbody tr:last-child td {
+    border-bottom: 3px solid;
+}
+
+@media print {
+    .reveal .slides section{
+        position: absolute;
+        top: 4cm !important;
+        /*width: 254mm !important; 
+        height: 143mm !important;*/
+    }
+    
+}
+ 
+@page { 
+    size: 908px 681px;
+} 
+
+/* 254 x 143mm */

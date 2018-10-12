@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>RevealJS : c:\Users\tfenster\Github\presentations\2018-10 directions emea docker session\pres\pres.md</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css" id="theme">
+         <link rel="stylesheet" href="theme/infoma.css" id="theme">
+       
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/darkula.css">
+
+        
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style type="text/css">
+            @page {    
+              margin: 0;
+              size: auto; 
+            }
+        </style>
+
+        <script>
+         if(window.location.search.match( /print-pdf-now/gi )) {
+           window.print();
+         }
+      </script>
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template"><!-- .element: class="initialslide" -->
+
+#### REAL LIFE SCENARIOS<br />AND BEST PRACTICES<br />FOR BC ON DOCKER
+##### Tobias Fenster<br />Directions EMEA<br />The Hague, 31.10.2018
+</script></section><section  data-markdown><script type="text/template">
+
+## Introduction and Agenda
+
+*Tobias Fenster*<br />
+CTO at Axians Infoma<br />
+Microsoft MVP for Business Applications<br />
+[@tobiasfenster](https://twitter.com/tobiasfenster) and https://navblog.axians-infoma.com<br />
+&nbsp;<br />&nbsp;<br />
+*Agenda*
+- Self-service container environments
+- Multi-container environments
+- Automated extension 2.0 builds with multi-stage containers
+- Using Azure Container Instances
+</script></section><section  data-markdown><script type="text/template">
+
+## Self-service container environments
+
+- Why? No Win 10 containers, not everyone has the technical knowledge, PMs / Devs don't need it &rarr; Provision containers on a server through a self-service interface
+- Explain base structure with a graphical overview: BC frontend, dotnet Core API, Docker API; gMSAs
+- Demo: create the container
+- Explain details about all components
+</script></section><section  data-markdown><script type="text/template">
+
+## Multi-container environments
+
+- Why? Multiple very similar containers or more complex scenarios
+- Explain release tests with 10 databases and all need a container
+- Explain compose and show PS script to generate compose yaml
+- Explain tools host with a couple of different containers
+- Explain setup with an external database, two BC containers and a reverse proxy
+</script></section><section  data-markdown><script type="text/template">
+
+## Automated extension 2.0 builds with multi-stage containers
+
+- see https://www.axians-infoma.de/navblog/dynamics-365-bc-extension-build-in-tfs-vsts-using-containers/
+</script></section><section  data-markdown><script type="text/template">
+
+## Using Azure Container Instances
+
+- go through the GUI wizard
+- show the az cli command that does the same
+- show quickstart template
+- show script to set up 100 BC containers for a workshop
+- mention ALRunner
+</script></section><section  data-markdown><script type="text/template">
+
+<!-- .element: class="finalslide" -->
+
+#### Any questions I can try to answer?
+
+##### [@tobiasfenster](https://twitter.com/tobiasfenster)<br />https://navblog.axians-infoma.de<br />[tobias.fenster@axians-infoma.de](mailto:tobias.fenster@axians-infoma.de)
+</script></section></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+              { src: 'plugin/math/math.js', async: true }
+            ];
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default',
+              dependencies: deps
+            };
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+            var options = {
+  "notesSeparator": "note:",
+  "separator": "^[\r\n?|\n]---[\r\n?|\n]$",
+  "verticalSeparator": "^[\r\n?|\n]--[\r\n?|\n]$",
+  "theme": "white",
+  "highlightTheme": "darkula",
+  "controls": true,
+  "progress": true,
+  "slideNumber": false,
+  "history": true,
+  "keyboard": true,
+  "overview": true,
+  "center": "false",
+  "touch": true,
+  "loop": false,
+  "rtl": false,
+  "shuffle": false,
+  "fragments": true,
+  "embedded": false,
+  "help": true,
+  "showNotes": false,
+  "autoSlide": 0,
+  "autoSlideStoppable": true,
+  "mouseWheel": false,
+  "hideAddressBar": true,
+  "previewLinks": false,
+  "transition": "none",
+  "transitionSpeed": "default",
+  "backgroundTransition": "none",
+  "viewDistance": 3,
+  "parallaxBackgroundImage": "",
+  "parallaxBackgroundSize": "",
+  "parallaxBackgroundHorizontal": null,
+  "parallaxBackgroundVertical": null,
+  "slideExplorerEnabled": true,
+  "browserPath": null,
+  "exportHTMLPath": "../../docs/201810-emeadockersession",
+  "openFilemanagerAfterHMLTExport": false,
+  "customTheme": "theme/infoma",
+  "height": "100%",
+  "width": "100%",
+  "showSlideNumber": "speaker",
+  "attributes": ""
+};
+            options = extend(defaultOptions, options, queryOptions);
+            Reveal.initialize(options);
+
+        </script>
+        
+    </body>
+</html>
