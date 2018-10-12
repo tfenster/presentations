@@ -144,9 +144,9 @@ az container create -g test --name testcont --image microsoft/bcsandbox:de \
   folders=c:\\run\\my=https://github.com/Azure/azure-quickstart-templates/raw/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip 
 ```
 <br />
+- Mit dns-name-label, PublicDnsName und ContactEMailForLetsEncrypt (keine Registrierung notwendig) wird ein *valides SSL-Zertifikat* abgerufen
 - Unbedingt **dns-name-label und eMail-Adresse anpassen...**
-<br />
-- Code und Präsentation unter https://ve.link/AIMeetsBizAppsHandson
+- Präsentation unter https://ve.link/AIMeetsBizAppsHandson für Copy und Paste
 
 ---
 
@@ -161,7 +161,7 @@ az container create -g test --name testcont --image microsoft/bcsandbox:de \
 - Schnellere Alternative: Azure Resource Manager (ARM) *Template* nutzen, in dem Teile schon *vordefiniert* sind
 - *Azure Quickstart Template* für NAV / BC unter https://ve.link/bc_aci &rarr; In Azure bereitstellen
 - Resource group auswählen
-- Dns Prefix (muss *eindeutig* sein) und Lets Encrypt Mail angeben (keine Registrierung notwendig) &rarr; *Valides SSL-Zertifikat*
+- Dns Prefix (muss *eindeutig* sein) und Lets Encrypt Mail angeben &rarr; *Valides SSL-Zertifikat*
 - Nav Release auf microsoft/bcsandbox:de ändern
 - Username und Password vergeben, Cpu Cores auf 4, Memory in Gb auf 8, Accept Eula auf Y
 - Ebenfalls bestätigen und per Azure Portal Fortschritt verfolgen
@@ -211,7 +211,7 @@ az group deployment create --name mydeployment --resource-group test \
   - *Visual Studio Code* öffnen (ggf. vorher von https://code.visualstudio.com/download herunterladen)
   - Extension *ALRunner* suchen und installieren
   - Ctrl+Shift+P &rarr; ALRunner: *Generate an API Client for Business Central*, dann URL `https://<fqdn>/nav`, Benutzername und Passwort eingeben
-- Wer *nicht* den Weg über das *Template* zum Erstellen des Containers gegangen ist oder es nicht geklappt hat: Ctrl+Shift+P &rarr; *ALRunner: Go API on Azure!*
+- Wer im vorherigen Hands on *nicht* die LetsEncrypt-Parameter beim Erstellen des Containers angegeben hat oder es nicht geklappt hat: Ctrl+Shift+P &rarr; *ALRunner: Go API on Azure!*
   - Erstellt eine Azure Container Instance anhand des *Template* und *generiert die Beispiel-REST-Aufrufe*
 
 ---
@@ -283,7 +283,7 @@ Default        : True
 - Alle Basis-Scripts im Container (https://github.com/microsoft/nav-docker) über *gleichnamige Dateien* in c:\run\my überschreibbar
   - Beim Start können .zip Dateien *heruntergeladen und in den Ordner kopiert* werden, z.B. `folders=c:\run\my=https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip`
 - Genauso z.B. eigene DLL Libraries oder andere notwendige Dateien beim Start in Container bringen: `folders:c:\temp=https://www.axians-infoma.de/logo.gif`
-- Wird im Quickstart Template verwendet, um obenstehendes Script für LetsEncrypt-Zertifikate einzubinden (folders-Parameter) und API Services zu aktivieren (customNavSettings)
+- Haben wir vorhin bereits verwendet, um obenstehendes Script für LetsEncrypt-Zertifikate einzubinden (folders-Parameter) und API Services zu aktivieren (customNavSettings)
 
 ---
 
