@@ -339,6 +339,12 @@ az container create -g test --name testcont --image testregtfe.azurecr.io/myownb
 
 ---
 
+<!-- .element: class="transitionslide" -->
+
+#### Hands on 4: Eigenes Business Central Image erzeugen
+
+---
+
 <!-- .element: class="finalslide" -->
 
 #### Welche Fragen darf ich beantworten?
