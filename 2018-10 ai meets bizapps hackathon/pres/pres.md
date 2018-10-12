@@ -28,7 +28,7 @@ Microsoft MVP für Business Applications<br />
 - Hands on 1: *Azure Container Instance* mit D365 BC
 - Hands on 2: *API Client* gegen BC verbinden (Connect App)
 - Hands on 3: Container *konfigurieren und Verhalten anpassen*
-- Hands on 4: Business Central *Challenges*
+- Hands on 4: *Eigenes* Business Central Image erzeugen
 
 ---
 
@@ -60,7 +60,7 @@ Microsoft MVP für Business Applications<br />
 - Wesentliche Vorteile:
   - *Einfacher* Weg, um Deployments / Konfigurationen *sehr stabil und sicher reproduzierbar* darzustellen (kein "works here", vermeidet Gap Dev vs. Ops)
   - *Bessere Ressourcennutzung* als mit klassischen VMs, insbes. da es kein Guest OS gibt, sondern der Kernel des Host *direkt verwendet* wird
-  - Großes Ökosystem vorhandener Images
+  - Großes Ökosystem vorhandener Images in sog. Registries, primär auf Docker Hub
 
 ---
 
@@ -100,7 +100,7 @@ Microsoft MVP für Business Applications<br />
 - **Hands on 1: Azure Container Instance mit D365 BC**
 - Hands on 2: *API Client* gegen BC verbinden (Connect App)
 - Hands on 3: Container *konfigurieren und Verhalten anpassen*
-- Hands on 4: Business Central *Challenges*
+- Hands on 4: *Eigenes* Business Central Image erzeugen
 
 ---
 
@@ -116,7 +116,7 @@ Microsoft MVP für Business Applications<br />
 
 ### Hands on 1<br />Azure Container Instance mit D365 BC
 
-- Im *Azure Portal*: Neue *Container Instance* &rarr; Einfacher Wizard, nicht alle Features
+- Im *Azure Portal*: Neue Resource Group "test" in West Europe anlegen, dann neue *Container Instance* &rarr; Einfacher Wizard, nicht alle Features
 - Schritt 1 *Basics* ausfüllen und als *Image microsoft/bcsandbox:de* verwenden
 - Schritt 2 *Configuration*:
   - OS Type: Windows / Number of cores: 2 / Memory (GB): 7
@@ -197,7 +197,7 @@ az group deployment create --name mydeployment --resource-group test \
 - Hands on 1: *Azure Container Instance* mit D365 BC
 - **Hands on 2: API Client gegen BC verbinden (Connect App)**
 - Hands on 3: Container *konfigurieren und Verhalten anpassen*
-- Hands on 4: Business Central *Challenges*
+- Hands on 4: *Eigenes* Business Central Image erzeugen
 
 ---
 
@@ -228,7 +228,7 @@ az group deployment create --name mydeployment --resource-group test \
 - Hands on 1: *Azure Container Instance* mit D365 BC
 - Hands on 2: *API Client* gegen BC verbinden (Connect App)
 - **Hands on 3: Container konfigurieren und Verhalten anpassen**
-- Hands on 4: Business Central *Challenges*
+- Hands on 4: *Eigenes* Business Central Image erzeugen
 
 ---
 
@@ -293,16 +293,49 @@ Default        : True
 - Hands on 1: *Azure Container Instance* mit D365 BC
 - Hands on 2: *API Client* gegen BC verbinden (Connect App)
 - Hands on 3: Container *konfigurieren und Verhalten anpassen*
-- **Hands on 4: Business Central Challenges**
+- **Hands on 4: Eigenes Business Central Image erzeugen**
 
 ---
 
-### Hands on 4<br />Business Central Challenges
+### Hands on 4<br />Eigenes Business Central Image erzeugen
 
-- https://blogs.msdn.microsoft.com/hackathonchallenges/
-- Nicht von mir, erstellt von Freddy Kristiansen
-- Voraussetzung: *AL extension* aus dem Container herunterladen (`http://<fqdn>:8080`) und in Visual Studio Code installieren
-- Selbst versuchen, aber wer nicht weiter kommt: Ganz unten *Cheat Sheets* und unter dem Namen sind die Passwörter in "weißer Schrift auf weißem Grund"
+- Azure Container Registry: https://azure.microsoft.com/de-de/services/container-registry/
+- Erlaubt über Azure CLI Erzeugen eigener Images ohne selbst Docker installiert zu haben
+- Registry erzeugen
+```Shell
+az acr create --name testregtfe --resource-group test --sku Standard
+```
+- Dockerfile erzeugen. Dafür Editor mit Kommando `code` starten
+```Shell
+FROM microsoft/bcsandbox:de
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+RUN mkdir c:/run/my
+COPY AdditionalSetup.ps1 c:/run/my
+```
+- AdditionalSetup.ps1 erzeugen. Zunächst mit Kommando `touch AdditionalSetup.ps1` erstellen, dann mit `code AdditionalSetup.ps1` öffnen
+```Shell
+Set-NAVServerConfiguration -KeyName ApiServicesEnabled -KeyValue true NAV
+Restart-NAVServerInstance NAV
+```
+
+---
+
+### Hands on 4<br />Eigenes Business Central Image erzeugen
+
+- Image erzeugen
+```Shell
+az acr build --registry testregtfe --os Windows --image myownbc:v1 .
+```
+- Container starten
+```Shell
+az container create -g test --name testcont --image testregtfe.azurecr.io/myownbc:v1 \
+  --os-type Windows --cpu 4 --memory 7 --ports 80 443 7048 7049 8080 \
+  --dns-name-label tst125tfe \
+  -e accept_eula=Y username=admin password=Passw0rd*123 \
+  ContactEMailForLetsEncrypt=tobias.fenster@axians-infoma.de \
+  PublicDnsName=tst125tfe.westeurope.azurecontainer.io \
+  folders=c:\\run\\my=https://github.com/Azure/azure-quickstart-templates/raw/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip 
+```
 
 ---
 
