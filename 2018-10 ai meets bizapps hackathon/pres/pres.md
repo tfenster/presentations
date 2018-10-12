@@ -116,7 +116,7 @@ Microsoft MVP für Business Applications<br />
 
 ### Hands on 1<br />Azure Container Instance mit D365 BC
 
-- Im *Azure Portal*: Neue *Container Instance*
+- Im *Azure Portal*: Neue *Container Instance* &rarr; Einfacher Wizard, nicht alle Features
 - Schritt 1 *Basics* ausfüllen und als *Image microsoft/bcsandbox:de* verwenden
 - Schritt 2 *Configuration*:
   - OS Type: Windows / Number of cores: 2 / Memory (GB): 7
@@ -129,6 +129,27 @@ Microsoft MVP für Business Applications<br />
 
 ---
 
+### Hands on 1<br />Azure Container Instance mit D365 BC
+
+- Per *Azure CLI* z.B. in der [Cloud Shell](https://shell.azure.com) automatisierbar
+
+```Shell
+az container create -g test --name testcont --image microsoft/bcsandbox:de \
+  --os-type Windows --cpu 4 --memory 7 --ports 80 443 7048 7049 8080 \
+  --dns-name-label tst124tfe \
+  -e accept_eula=Y username=admin password=Passw0rd*123 \
+  ContactEMailForLetsEncrypt=tobias.fenster@axians-infoma.de \
+  PublicDnsName=tst124tfe.westeurope.azurecontainer.io \
+  customNavSettings=ApiServicesEnabled=true \
+  folders=c:\\run\\my=https://github.com/Azure/azure-quickstart-templates/raw/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip 
+```
+<br />
+- Unbedingt **dns-name-label und eMail-Adresse anpassen...**
+<br />
+- Code und Präsentation unter https://ve.link/AIMeetsBizAppsHandson
+
+---
+
 <!-- .element: class="transitionslide" -->
 
 #### Hands on 1.1: ACI im Portal
@@ -137,7 +158,8 @@ Microsoft MVP für Business Applications<br />
 
 ### Hands on 1<br />Azure Container Instance mit D365 BC
 
-- Schnellere (und flexiblere) Alternative: *Azure Quickstart Template* für NAV / BC unter https://ve.link/bc_aci &rarr; In Azure bereitstellen
+- Schnellere Alternative: Azure Resource Manager (ARM) *Template* nutzen, in dem Teile schon *vordefiniert* sind
+- *Azure Quickstart Template* für NAV / BC unter https://ve.link/bc_aci &rarr; In Azure bereitstellen
 - Resource group auswählen
 - Dns Prefix (muss *eindeutig* sein) und Lets Encrypt Mail angeben (keine Registrierung notwendig) &rarr; *Valides SSL-Zertifikat*
 - Nav Release auf microsoft/bcsandbox:de ändern
@@ -153,15 +175,13 @@ Microsoft MVP für Business Applications<br />
 
 ```Shell
 az group deployment create --name mydeployment --resource-group test \
-  --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-aci-dynamicsnav/azuredeploy.json \
   --parameters dnsPrefix=tst123tfe letsEncryptMail=tobias.fenster@axians-infoma.de \
     navRelease=microsoft/bcsandbox:de username=admin password=Passw0rd* \
-    cpuCores=4 memoryInGb=8 acceptEula=Y
+    cpuCores=4 memoryInGb=8 acceptEula=Y \
+  --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-aci-dynamicsnav/azuredeploy.json
 ```
 <br />
 - Unbedingt **dnsPrefix und eMail-Adresse anpassen...**
-<br />
-- Code und Präsentation unter https://ve.link/AIMeetsBizAppsHandson
 
 ---
 
