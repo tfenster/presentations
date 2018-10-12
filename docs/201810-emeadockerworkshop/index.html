@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>RevealJS : c:\Users\tfenster\Github\presentations\2018-10 directions emea docker workshop\pres\pres.md</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css" id="theme">
+         <link rel="stylesheet" href="theme/infoma.css" id="theme">
+       
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/darkula.css">
+
+        
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style type="text/css">
+            @page {    
+              margin: 0;
+              size: auto; 
+            }
+        </style>
+
+        <script>
+         if(window.location.search.match( /print-pdf-now/gi )) {
+           window.print();
+         }
+      </script>
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template"><!-- .element: class="initialslide" -->
+
+#### Docker on Windows and Business Central on Docker introduction
+##### Tobias Fenster<br />Directions EMEA<br />The Hague, 29.10.2018
+</script></section><section  data-markdown><script type="text/template">
+
+## Introduction and Agenda
+
+*Tobias Fenster*<br />
+CTO at Axians Infoma<br />
+Microsoft MVP for Business Applications<br />
+[@tobiasfenster](https://twitter.com/tobiasfenster) and https://navblog.axians-infoma.com<br />
+&nbsp;<br />&nbsp;<br />
+*Agenda*
+- Intro to the workshop structure and quick walk-through
+- You work :)
+</script></section><section  data-markdown><script type="text/template">
+
+### Intro to the workshop structure<br />Three "tracks" according to your preference
+
+- *Track 1:* **Docker on Windows**
+  - If you want: Uninstall Docker as it already is installed and install it again
+  - Try small *hello world* examples and create *simple Dockerfiles* building your own images
+  - Extend existing Dockerfiles as *multi-stage images*
+  - Run *multi-container environments* using Docker Compose
+- *Track 2:* **Business Central on Docker**
+  - Run your first *Business Central* in a container, change *config settings* and add your *own files*
+  - Run a more complex scenario connecting Business Central to an *external SQL Server*
+  - Run a *Docker Swarm* with a reverse proxy and multiple Business Central containers
+- *Track 3:* **navcontainerhelper**
+  - Install the module and run your *first Business Central in a container*
+  - *"Old school"* setup: Win Auth, C/SIDE, Win Client
+  - Develop with *VS Code* and publish *apps*
+- *Bonus track* if you want to be *gone in 10 min*: Business Central in an *Azure Container Instance*
+</script></section><section  data-markdown><script type="text/template">
+
+<!-- .element: class="finalslide" -->
+
+#### Any questions I can try to answer?
+
+##### [@tobiasfenster](https://twitter.com/tobiasfenster)<br />https://navblog.axians-infoma.de<br />[tobias.fenster@axians-infoma.de](mailto:tobias.fenster@axians-infoma.de)
+</script></section></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+              { src: 'plugin/math/math.js', async: true }
+            ];
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default',
+              dependencies: deps
+            };
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+            var options = {
+  "notesSeparator": "note:",
+  "separator": "^[\r\n?|\n]---[\r\n?|\n]$",
+  "verticalSeparator": "^[\r\n?|\n]--[\r\n?|\n]$",
+  "theme": "white",
+  "highlightTheme": "darkula",
+  "controls": true,
+  "progress": true,
+  "slideNumber": false,
+  "history": true,
+  "keyboard": true,
+  "overview": true,
+  "center": "false",
+  "touch": true,
+  "loop": false,
+  "rtl": false,
+  "shuffle": false,
+  "fragments": true,
+  "embedded": false,
+  "help": true,
+  "showNotes": false,
+  "autoSlide": 0,
+  "autoSlideStoppable": true,
+  "mouseWheel": false,
+  "hideAddressBar": true,
+  "previewLinks": false,
+  "transition": "none",
+  "transitionSpeed": "default",
+  "backgroundTransition": "none",
+  "viewDistance": 3,
+  "parallaxBackgroundImage": "",
+  "parallaxBackgroundSize": "",
+  "parallaxBackgroundHorizontal": null,
+  "parallaxBackgroundVertical": null,
+  "slideExplorerEnabled": true,
+  "browserPath": null,
+  "exportHTMLPath": "../../docs/201810-emeadockerworkshop",
+  "openFilemanagerAfterHMLTExport": false,
+  "customTheme": "theme/infoma",
+  "height": "100%",
+  "width": "100%",
+  "showSlideNumber": "speaker",
+  "attributes": ""
+};
+            options = extend(defaultOptions, options, queryOptions);
+            Reveal.initialize(options);
+
+        </script>
+        
+    </body>
+</html>
