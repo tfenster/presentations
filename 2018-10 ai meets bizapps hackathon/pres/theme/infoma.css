@@ -281,6 +281,10 @@ li {
     white-space: pre-wrap;
 }
 
+.reveal pre code {
+    max-height: 510px;
+}
+
 .reveal table th, .reveal table td {
     text-align: center;
     border: 3px solid;
