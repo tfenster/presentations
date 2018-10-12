@@ -11,7 +11,7 @@ center: "false"
 ---
 <!-- .element: class="initialslide" -->
 
-#### Docker on Windows and Business Central on Docker introduction
+#### Docker on Windows<br />and Business Central<br />on Docker intro
 ##### Tobias Fenster<br />Directions EMEA<br />The Hague, 29.10.2018
 
 ---
