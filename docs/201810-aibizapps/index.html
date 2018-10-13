@@ -302,7 +302,7 @@ Default        : True
 ### Hands on 4<br />Eigenes Business Central Image erzeugen
 
 - Azure Container Registry: https://azure.microsoft.com/de-de/services/container-registry/
-- Erlaubt über Azure CLI Erzeugen eigener Images ohne selbst Docker installiert zu haben
+- Erlaubt über Azure CLI *Erzeugen eigener Images ohne lokal Docker* installiert zu haben
 - Registry erzeugen
 ```Shell
 az acr create --name testregtfe --resource-group test --sku Standard
@@ -337,7 +337,7 @@ az container create -g test --name testcont --image testregtfe.azurecr.io/myownb
   PublicDnsName=tst125tfe.westeurope.azurecontainer.io \
   folders=c:\\run\\my=https://github.com/Azure/azure-quickstart-templates/raw/master/101-aci-dynamicsnav/scripts/SetupCertificate.zip 
 ```
-</script></section><section  data-markdown><script type="text/template">
+- Zugangsdaten über Azure Portal &rarr; Container Registry &rarr; Access Keys &rarr; *Enable admin*</script></section><section  data-markdown><script type="text/template">
 
 <!-- .element: class="transitionslide" -->
 
