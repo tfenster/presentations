@@ -34,22 +34,83 @@ Microsoft MVP for Business Applications<br />
 
 ---
 
-### Intro to the workshop structure<br />Three "tracks" according to your preference
+### Intro to the workshop structure<br />Multiple "tracks" according to your preference
 
 - *Track 1:* **Docker on Windows**
-  - If you want: Uninstall Docker as it already is installed and install it again
-  - Try small *hello world* examples and create *simple Dockerfiles* building your own images
-  - Extend existing Dockerfiles as *multi-stage images*
-  - Run *multi-container environments* using Docker Compose
 - *Track 2:* **Business Central on Docker**
-  - Run your first *Business Central* in a container, change *config settings* and add your *own files*
-  - Run a more complex scenario connecting Business Central to an *external SQL Server*
-  - Run a *Docker Swarm* with a reverse proxy and multiple Business Central containers
 - *Track 3:* **navcontainerhelper**
-  - Install the module and run your *first Business Central in a container*
-  - *"Old school"* setup: Win Auth, C/SIDE, Win Client
-  - Develop with *VS Code* and publish *apps*
-- *Bonus track* if you want to be *gone in 10 min*: Business Central in an *Azure Container Instance*
+- *Track 4:* **Business Central with Azure Container Instances (ACI) and Azure Container Registry (ACR)**
+- *Track 5:* **Container high availability: Business Central using Compose and on Docker Swarm**
+
+---
+
+### Introduction to Docker<br />if you are not sure yet what this is
+
+- What is Docker? Leading cross platform software container environment
+- What is a Docker container and a Docker image?
+  - An image is a template with the minimum amount of os, libraries and application binaries needed
+  - A container is an instance of an image with an immutable base and it’s changes on top
+  - A container is NOT a VM, you especially don’t have a GUI and nothing you can connect to with RDP!
+- What is a Docker host? The (physical or virtual) machine where the containers are running
+- What is a Docker registry? A place where you and others can upload (push) and download (pull) images
+- Why Docker?
+  - *Easy way* to ceate deployments / configuration in a *very stable and reliable* way (no "works here", helps a lot to avoid gaps between dev and ops)
+  - *Better resource usage* than in vms, especially because there is no guest os as the host kernel is *directly users*
+  - Big ecosystem of readily available images, primarily on Docker Hub
+
+---
+
+### Track 1<br />Docker on Windows
+
+- If you want: Uninstall Docker as it already is installed and install it again
+- Try small *hello world* examples and create *simple Dockerfiles* building your own images
+- Extend existing Dockerfiles as *multi-stage images*
+- Run *multi-container environments* using Docker Compose
+<br />&nbsp;<br />
+- Interesting if you want to install Docker yourself and want to learn the Docker basics without anything BC specific
+
+---
+
+### Track 2<br />Business Central on Docker
+
+- Run your first *Business Central* in a container, change *config settings* and add your *own files*
+- Persist your changes in your *own image*
+- Run a more complex scenario connecting Business Central to an *external SQL Server*
+- Connect your *development tools* to the container
+<br />&nbsp;<br />
+- Interesting if you want to get started with Business Central on Docker and look into some moderately complex examples
+
+---
+
+### Track 3<br />navcontainerhelper
+
+- Install the module and run your *first Business Central in a container*
+- *"Old school"* setup: Win Auth, C/SIDE, Win Client
+- Develop with *VS Code* and publish *apps*
+<br />&nbsp;<br />
+- Interesting if you want to follow the easiest possible route when using Docker in connection with BC
+
+---
+
+### Track 4<br />Business Central with ACIs and ACR
+
+- Get started: Use the *GUI* to create your *first ACI*
+- Use the *Azure CLI to automate* creating the ACI
+- Use *templates* to deploy ACIs
+- Create you *own image*, push it to *ACR* and run it as ACI
+<br />&nbsp;<br />
+- Interesting if you want to run Docker images and create your own images without installing and maintaining the base infrastructure
+
+---
+
+### Track 5<br />Container HA: Business Central using Compose and on Docker Swarm
+
+- Use Compose to create a *multi-container Business Central environment*
+- Create a *Docker Swarm*
+- Publish Business Central
+- Add *more containers*, make them available with a *reverse proxy* and visualize them with *Portainer*
+<br />&nbsp;<br />
+- Interesting if you want to implement a highly available Business Central infrastructure using containers
 
 ---
 
