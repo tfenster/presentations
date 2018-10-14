@@ -9,6 +9,11 @@ width: "100%"
 showSlideNumber: "speaker"
 center: "false"
 ---
+
+<!-- .element: class="initialslide_directions" -->
+
+---
+
 <!-- .element: class="initialslide" -->
 
 #### How to manage<br />the lifecycle of<br />volume verticals

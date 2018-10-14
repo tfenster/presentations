@@ -9,6 +9,11 @@ width: "100%"
 showSlideNumber: "speaker"
 center: "false"
 ---
+
+<!-- .element: class="initialslide_directions" -->
+
+---
+
 <!-- .element: class="initialslide" -->
 
 #### REAL LIFE SCENARIOS<br />AND BEST PRACTICES<br />FOR BC ON DOCKER

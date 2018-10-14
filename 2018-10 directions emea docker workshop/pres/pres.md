@@ -9,6 +9,11 @@ width: "100%"
 showSlideNumber: "speaker"
 center: "false"
 ---
+
+<!-- .element: class="initialslide_directions" -->
+
+---
+
 <!-- .element: class="initialslide" -->
 
 #### Docker on Windows<br />and Business Central<br />on Docker intro
