@@ -1,0 +1,106 @@
+{
+    "intial slide": {
+        "prefix": "tfeinit",
+        "body": [
+            "",
+            "<!-- .element: class=\"initialslide\" -->",
+            "",
+            "#### How to manage<br />the lifecycle of<br />volume verticals",
+            "##### Tobias Fenster<br />Directions EMEA<br />The Hague, 31.10.2018",
+            "",
+            "---",
+            ""
+        ],
+        "description": "Initial slide",
+        "scope": "markdown"
+    },
+    "transition slide": {
+        "prefix": "tfetransition",
+        "body": [
+            "",
+            "<!-- .element: class=\"transitionslide\" -->",
+            "",
+            "#### Demo",
+            "",
+            "---",
+            ""
+        ],
+        "description": "Transition slide",
+        "scope": "markdown"
+    },
+    "final slide": {
+        "prefix": "tfefinal",
+        "body": [
+            "",
+            "<!-- .element: class=\"finalslide\" -->",
+            "",
+            "#### Any questions I can try to answer?",
+            "",
+            "##### [@tobiasfenster](https://twitter.com/tobiasfenster)<br />https://navblog.axians-infoma.de<br />[tobias.fenster@axians-infoma.de](mailto:tobias.fenster@axians-infoma.de)",
+            "",
+            "---",
+            ""
+        ],
+        "description": "Final slide",
+        "scope": "markdown"
+    },
+    "regular slide": {
+        "prefix": "tferegular",
+        "body": [
+            "",
+            "### Header<br />Zweite Zeile",
+            "",
+            "---",
+            ""
+        ],
+        "description": "Regular slide",
+        "scope": "markdown"
+    },
+    "image maxheight": {
+        "prefix": "tfeimgmaxheight",
+        "body": [
+            "![img maxheight](https://media.giphy.com/media/gw3IWyGkC0rsazTi/giphy.gif)"
+        ],
+        "description": "image max height",
+        "scope": "markdown"
+    },
+    "image maxwidth": {
+        "prefix": "tfeimgmaxwidth",
+        "body": [
+            "![img maxwidth](https://media.giphy.com/media/gw3IWyGkC0rsazTi/giphy.gif)"
+        ],
+        "description": "image max width",
+        "scope": "markdown"
+    },
+    "image centered": {
+        "prefix": "tfeimgcentered",
+        "body": [
+            "![img centered](https://media.giphy.com/media/gw3IWyGkC0rsazTi/giphy.gif)"
+        ],
+        "description": "image centered",
+        "scope": "markdown"
+    },
+    "fade in": {
+        "prefix": "tfefadein",
+        "body": [
+            "<div class=\"fragment fade-in\">Aus NAV wird Business Central</div><div class=\"fragment fade-in\">und alles wird besser</div>"
+        ],
+        "description": "image centered",
+        "scope": "markdown"
+    },
+    "multicolumn": {
+        "prefix": "tfemulticolumn",
+        "body": [
+            "<div class=\"container\">",
+            "    <div class=\"col\">",
+            "        Inhalt links",
+            "    </div>",
+            "    <div class=\"col\">",
+            "        Inhalt rechts",
+            "    </div>",
+            "</div>"
+        ],
+        "description": "multi column layout",
+        "scope": "markdown"
+    }
+}
