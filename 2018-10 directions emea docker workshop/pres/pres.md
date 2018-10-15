@@ -39,21 +39,21 @@ Microsoft MVP for Business Applications<br />
 - *Track 1:* **Docker on Windows**
 - *Track 2:* **Business Central on Docker**
 - *Track 3:* **navcontainerhelper**
-- *Track 4:* **Business Central with Azure Container Instances (ACI) and Azure Container Registry (ACR)**
+- *Track 4:* **Business Central with Azure Container Instances and Azure Container Registry**
 - *Track 5:* **Container high availability: Business Central using Compose and on Docker Swarm**
 
 ---
 
 ### Introduction to Docker<br />if you are not sure yet what this is
 
-- What is Docker? Leading cross platform software container environment
-- What is a Docker container and a Docker image?
-  - An image is a template with the minimum amount of os, libraries and application binaries needed
-  - A container is an instance of an image with an immutable base and it’s changes on top
-  - A container is NOT a VM, you especially don’t have a GUI and nothing you can connect to with RDP!
-- What is a Docker host? The (physical or virtual) machine where the containers are running
-- What is a Docker registry? A place where you and others can upload (push) and download (pull) images
-- Why Docker?
+- What is **Docker**? Leading cross platform *software container* environment
+- What is a *Docker container* and a *Docker image*?
+  - An image is a template with the *minimum amount of os, libraries and application binaries* needed
+  - A container is an *instance of an image* with an immutable base and it’s changes on top
+  - A container is *NOT a VM*, you especially don’t have a GUI and nothing you can connect to with RDP!
+- What is a *Docker host*? The (physical or virtual) machine where the *containers are running*
+- What is a *Docker registry*? A place where you and others can *upload (push) and download (pull) images*
+- *Why* Docker?
   - *Easy way* to ceate deployments / configuration in a *very stable and reliable* way (no "works here", helps a lot to avoid gaps between dev and ops)
   - *Better resource usage* than in vms, especially because there is no guest os as the host kernel is *directly users*
   - Big ecosystem of readily available images, primarily on Docker Hub
@@ -67,7 +67,7 @@ Microsoft MVP for Business Applications<br />
 - Extend existing Dockerfiles as *multi-stage images*
 - Run *multi-container environments* using Docker Compose
 <br />&nbsp;<br />
-- Interesting if you want to install Docker yourself and want to learn the Docker basics without anything BC specific
+- Interesting if you want to *install Docker yourself* and want to learn the *Docker basics without anything BC specific*
 
 ---
 
@@ -78,7 +78,7 @@ Microsoft MVP for Business Applications<br />
 - Run a more complex scenario connecting Business Central to an *external SQL Server*
 - Connect your *development tools* to the container
 <br />&nbsp;<br />
-- Interesting if you want to get started with Business Central on Docker and look into some moderately complex examples
+- Interesting if you want to *get started with Business Central on Docker* and look into some moderately complex examples
 
 ---
 
@@ -88,7 +88,7 @@ Microsoft MVP for Business Applications<br />
 - *"Old school"* setup: Win Auth, C/SIDE, Win Client
 - Develop with *VS Code* and publish *apps*
 <br />&nbsp;<br />
-- Interesting if you want to follow the easiest possible route when using Docker in connection with BC
+- Interesting if you want to follow the *easiest possible route* when using Docker in connection with BC
 
 ---
 
@@ -99,7 +99,7 @@ Microsoft MVP for Business Applications<br />
 - Use *templates* to deploy ACIs
 - Create you *own image*, push it to *ACR* and run it as ACI
 <br />&nbsp;<br />
-- Interesting if you want to run Docker images and create your own images without installing and maintaining the base infrastructure
+- Interesting if you want to run Docker images and create your own images *without installing and maintaining* the base infrastructure
 
 ---
 
@@ -110,7 +110,7 @@ Microsoft MVP for Business Applications<br />
 - Publish Business Central
 - Add *more containers*, make them available with a *reverse proxy* and visualize them with *Portainer*
 <br />&nbsp;<br />
-- Interesting if you want to implement a highly available Business Central infrastructure using containers
+- Interesting if you want to implement a *highly available Business Central infrastructure* using containers
 
 ---
 
