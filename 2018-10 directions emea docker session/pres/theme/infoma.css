@@ -166,15 +166,15 @@
     box-shadow: none;
 }
 
-.reveal section img.maxwidth {
+.reveal section img[alt~=maxwidth] {
     max-width: calc(100% - 150px);
 }
 
-.reveal section img.maxheight {
+.reveal section img[alt~=maxheight] {
     max-height: calc(100% - 50px);
 }
 
-.reveal section img.centered {
+.reveal section img[alt~=centered] {
     display:block;
     margin-left:auto;
     margin-right:auto;
