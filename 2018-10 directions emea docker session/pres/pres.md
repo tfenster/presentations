@@ -80,7 +80,7 @@ Microsoft MVP for Business Applications<br />
 
 <!-- .element: class="transitionslide" -->
 
-#### Demo: Create a container
+#### Demo 1.1: Create a container
 
 ---
 
@@ -94,15 +94,17 @@ Microsoft MVP for Business Applications<br />
   - Creates gMSA, if newsystem container then downloads DLLs from TFS and gets backup
   - Constructs and executes `docker run` command
   - Gets running containers and logs from the Docker API
-- Container: Standard image from Microsoft
-  - TODO
+- Container: Standard image from Microsoft with a couple of additional scripts and specific settings
+  - Grant an AD user group access to the database
+  - Automatically convert the database on startup (in case the .bak is from an older CU than the container)
+  - Use Windows authentication and our dev license
 - Example `docker run` command: 
 
 ---
 
 <!-- .element: class="transitionslide" -->
 
-#### Demo 1: See the running container
+#### Demo 1.2: See the running container
 
 ---
 
@@ -150,6 +152,7 @@ Microsoft MVP for Business Applications<br />
   - Can run mixed OS: some nodes Windows, some nodes Linux
 - Widely used alternative to Docker Swarm in the Linux world: Kubernetes
   - Windows GA expected in the next months
+  - Probably Windows authentication soon after
 
 ---
 

@@ -88,7 +88,7 @@
 /* Abschlussfolie Kontaktdaten */
 .reveal .finalslide h5 {
     position: absolute;
-    bottom: -20px;
+    bottom: -60px;
     left: 25px;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif !important;
@@ -122,9 +122,17 @@
     background-position: top, bottom;
 }
 
+/* Titelfolie Directions */
+.reveal .slide-background.initialslide_directions  {
+    background-image: url(../img/intro-directions-emea.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 /* Alles Sonderfolien */
 
-.reveal .initialslide .slide-number, .reveal .finalslide .slide-number, .reveal .transitionslide .slide-number {
+.reveal .initialslide .initialslide_directions .slide-number, .reveal .finalslide .slide-number, .reveal .transitionslide .slide-number {
     display: none !important;
 }
 
@@ -158,15 +166,15 @@
     box-shadow: none;
 }
 
-.reveal section img.maxwidth {
+.reveal section img[alt~=maxwidth] {
     max-width: calc(100% - 150px);
 }
 
-.reveal section img.maxheight {
+.reveal section img[alt~=maxheight] {
     max-height: calc(100% - 50px);
 }
 
-.reveal section img.centered {
+.reveal section img[alt~=centered] {
     display:block;
     margin-left:auto;
     margin-right:auto;
@@ -278,11 +286,6 @@ li {
     width: 100%;
     margin: 20px;
     font-size: 35px;
-    white-space: pre-wrap;
-}
-
-.reveal pre code {
-    max-height: 510px;
 }
 
 .reveal table th, .reveal table td {
