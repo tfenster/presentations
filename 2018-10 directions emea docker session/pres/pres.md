@@ -61,7 +61,7 @@ Microsoft MVP for Business Applications<br />
 - *Central team* provides all infrastructure:
   - *Standard images* for laptops, *central vms* for development
   - *Central SQL Servers / NST / IIS* for dev and test. Local NST installs for some cases but more because of how NAV currently works than because we like it (debugging, need to restart, cmdlets that work only locally, development of server-side dlls)
-- **Central Docker containers** because of all of the above and we can stay away from Docker on Win 10 / Docker Community Edition
+- **Central Docker containers** because of all of the above and we can stay away from Docker on Win 10 / Docker Community Edition (side note: Win 10 since very recently allows process isolation, which means we'll take another look)
   - Main reason why we are not using navcontainerhelper a lot, as it mostly assumes local Docker installs (and our ops professionals already have advanced Docker knowledge)
 
 ---
@@ -139,7 +139,7 @@ Microsoft MVP for Business Applications<br />
 
 ---
 
-### Multi-container environments<br />Details
+### Multi-container environments<br />Additions
 
 - YAML definitions can be changed and Docker will only update the changed parts
 - Allows easily updating or even changing the host
@@ -156,19 +156,52 @@ Microsoft MVP for Business Applications<br />
 
 ---
 
-## Automated extension 2.0 builds with multi-stage containers
+## Automated extension 2.0 builds with multi-stage containers<br />Overview
 
-- see https://www.axians-infoma.de/navblog/dynamics-365-bc-extension-build-in-tfs-vsts-using-containers/
+- Why? Automated builds should be a given and containers offer 100% reliable and clean environments
+  - Manually building is very time consuming and error prone
+  - Keeping build environments clean is difficult &rarr; often periodic re-installs
+  - Creating a container for every build is not much overhead but guarantees a clean environment
+  - Standard bcsandbox / bconprem is quite big, multi-stage image reduces that
+- How? TFS builds with custom images
+  - Run a build on every commit ("gated checkins")
+  - Scripts and Docker images for building extensions
+  - Run automated tests in the end
+- See https://www.axians-infoma.de/navblog/dynamics-365-bc-extension-build-in-tfs-vsts-using-containers/
 
 ---
 
-## Using Azure Container Instances
+<!-- .element: class="transitionslide" -->
 
-- go through the GUI wizard
-- show the az cli command that does the same
-- show quickstart template
-- show script to set up 100 BC containers for a workshop
-- mention ALRunner
+#### Demo 3: From code change to tested .app file
+
+---
+
+## Using Azure Container Instances<br />Overview
+
+- Why? You quickly need 1-n business central "installations" to test or demo something or for e.g. a workshop
+  - Azure Container Instances (ACIs) just run 1-n containers without the need to worry about the base infrastructure
+  - Paid on demand by seconds of CPU / RAM / Windows license (see [Azure pricing calculator](https://azure.microsoft.com/de-de/pricing/calculator/))
+- How? Multiple ways
+  - Azure Portal GUI
+  - Azure command line or PowerShell cmdlets for single containers
+  - ARM template deployed manually
+  - ARM template deployes through Azure command line or PowerShell cmdlets
+  - Probably more... (including my little VS Code extension "ALRunner")
+
+---
+
+<!-- .element: class="transitionslide" -->
+
+#### Demo 4.1: Create ACIs 
+
+---
+
+## Using Azure Container Instances<br />Additions
+
+- Azure Container Registry (ACR) offers "serverless" build infrastructure
+  - Create your own image without installing Docker
+  - Especially useful if you want to have custom images based on multiple standard images (like NAV 2017, NAV 2018, BC OnPrem, BC Sandbox, nightly build, etc.)
 
 ---
 
