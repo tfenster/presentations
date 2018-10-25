@@ -154,13 +154,14 @@ Microsoft MVP for Business Applications<br />
 - Every night *automated build of a full release* – same as for actual release
   - Again: *fail fast, fail early*
   - No "related changes" yet as we are not using integrated source control for our main solution, but for our AL extension
-- *Automated deployment of changed objects* to test databases (no full install yet) and *automated tests*
-  - Enabled pm to *test with good data* (even some customer databases who agreed to let us test with there data) while development is still working &rarr; if possible, *don't wait for release tests*
+- *Automated deployment of changed objects* to test databases (no full install yet) and *auto-tests*
+  - Enables product managers to *test with good data* (even some customer databases who agreed to let us test with their data) while development is still working &rarr; if possible, *don't wait for release tests*
 - Test cases for *every* closed WorkItem
   - Make sure you *test everything at least once*, no matter how small
 - *Automatically generated PDF documentation* from content in WorkItems
   - Release notes for major releases usually with up to 150 pages or more, which gets ugly in Word
 - After release: Docker-based *self-service version environments* for "did this work in release X and break in releas Y?" tests including the correct NAV CUs
+- *Beta workshops* with selected customers and partners together with product managers
 
 ---
 
