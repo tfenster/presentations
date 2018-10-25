@@ -286,6 +286,11 @@ li {
     width: 100%;
     margin: 20px;
     font-size: 35px;
+    white-space: pre-wrap;
+}
+
+.reveal pre code {
+    max-height: 710px;
 }
 
 .reveal table th, .reveal table td {
