@@ -280,7 +280,7 @@ docker run --security-opt "credentialspec=file://testtfe.json"
 
 ---
 
-## Bonus topic: Using Azure Container Instances<br />Overview
+### Bonus topic: Using Azure Container Instances<br />Overview
 
 - **Why?** You quickly need 1-n business central "installations" to test or demo something or for e.g. a workshop
   - Azure Container Instances (ACIs) *just run* 1-n containers without the need to worry about the *base infrastructure*
@@ -300,7 +300,7 @@ docker run --security-opt "credentialspec=file://testtfe.json"
 
 ---
 
-## Bonus topic: Using Azure Container Instances<br />Additions
+### Bonus topic: Using Azure Container Instances<br />Additions
 
 - Azure Container Registry (ACR) offers *"serverless" build* infrastructure
   - Create your *own image* without installing Docker
