@@ -47,15 +47,15 @@ Microsoft MVP for Business Applications<br />
 - What is a *Docker host*? The (physical or virtual) machine where the *containers are running*
 - What is a *Docker registry*? A place where you and others can *upload (push) and download (pull) images*
 - *Why* Docker?
-  - *Easy way* to ceate deployments / configuration in a *very stable and reliable* way (no "works here", helps a lot to avoid gaps between dev and ops)
-  - *Better resource usage* than in vms, especially because there is no guest os as the host kernel is *directly users*
+  - *Easy way* to create deployments / configuration in a *very stable and reliable* way (no "works here", helps a lot to avoid gaps between dev and ops)
+  - *Better resource usage* than in vms, especially because there is no guest os as the host kernel is *directly used*
   - Big ecosystem of readily available images, primarily on Docker Hub
 
 ---
 
 ## Introduction to the overall scenario
 
-- Axians Infoma is an ISV for > 1.200 customers with *> 100 employees directly working on the product* (program managers, developers, back office etc.)
+- Axians Infoma is an ISV for > 1.200 customers with *> 100 employees directly working on the product newsystem* (program managers, developers, back office etc.)
 - Technical infrastructure must be useable as *quick and easy as possible*: standardize, minimize friction, don't expect infrastructure knowledge (and don't create a need for it)
   - A lot of employees with infrastructure knowledge, but main strength and therefore *focus is working on the product itself*
   - Time spent on local dev infrastructure is very likely time not spent on something that *won't improve the product or customer satisfaction*
@@ -107,7 +107,7 @@ Microsoft MVP for Business Applications<br />
 - **Container**: *Standard NAV / BC image* from Microsoft with a couple of additional scripts and specific settings
   - Script 1: Grant an *AD user group* access to the database
   - Script 2: Automatically *convert the database on startup* (in case the .bak is from an older CU than the container)
-  - Parameters: Use *Windows authentication and our *dev license*
+  - Parameters: Use *Windows authentication* and our *dev license*
 
 ---
 
@@ -117,7 +117,7 @@ Microsoft MVP for Business Applications<br />
 ```Shell
 docker run --security-opt "credentialspec=file://testtfe.json" 
   --name testtfe --hostname testtfe -e accept_eula=y -e accept_outdated=y 
-  --network MyTransparentNetwork -e clickonce=y -e usessnl=y 
+  --network MyTransparentNetwork -e clickonce=y -e usessl=y 
   -e auth=Windows -e username=admin -e password=Passw0rd*123 
   -e folders="c:\run\my=https://tools.axians-infoma.de/grant-user-access.zip\nav-docker-samples-grant-user-access,c:\run\my=https://tools.axians-infoma.de/invoke-conversion.zip\nav-docker-samples-invoke-conversion" 
   -e DevDomain=FUM-GLOBAL -e DevGroup=GRP_INFOMA_DEV_ALL 
