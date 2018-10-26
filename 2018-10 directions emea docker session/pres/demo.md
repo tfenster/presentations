@@ -26,6 +26,7 @@ compose
 
 Extern
 compose
+AdditionalSetup.ps1
 nginx config
 
 
