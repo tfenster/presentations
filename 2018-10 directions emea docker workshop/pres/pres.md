@@ -32,7 +32,7 @@ Microsoft MVP for Business Applications<br />
 - Intro to the workshop structure and quick walk-through
 - You work :)
 <br />&nbsp;<br />
-- Find material [here](https://ve.link/dir18-docker-ws)
+- Find material at [https://ve.link/dir18-docker-ws](https://ve.link/dir18-docker-ws)
 
 ---
 
