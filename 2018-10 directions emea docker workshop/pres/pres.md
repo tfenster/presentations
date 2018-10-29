@@ -41,7 +41,7 @@ Microsoft MVP for Business Applications<br />
 - *Track 1:* **Docker on Windows**
 - *Track 2:* **Business Central on Docker**
 - *Track 3:* **navcontainerhelper**
-- *Track 4:* **Business Central with Azure Container Instances and Azure Container Registry** 
+- *Track 4:* **Business Central with Azure Container Instances** 
 
 ---
 
@@ -66,7 +66,7 @@ Microsoft MVP for Business Applications<br />
 - If you want: Uninstall Docker ([video 1.1](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/1.1%20-%20uninstall.mp4)) as it already is installed and install it again ([video 1.2](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/1.2%20-%20install.mp4))
   - If you are not using the workshop vm, then follow the install instructions as well
 - Try a small *hello world* example ([video 1.3](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/1.3%20-%20hello%20world.mp4)) and create *simple Dockerfiles* building your own image ([video 1.4](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/1.4%20-%20customer%20container%20image.mp4), [download sources](https://ve.link/dir18-14))
-- Extend existing Dockerfiles as *multi-stage images* ([video 1.5](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/1.5%20-%20multistage.mp4)), [download sources](https://ve.link/dir18-15))
+- Extend existing Dockerfiles as *multi-stage images* ([video 1.5](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/1.5%20-%20multistage.mp4), [download sources](https://ve.link/dir18-15))
 <br />&nbsp;<br />
 - Interesting if you want to *install Docker yourself* and want to learn the *Docker basics without anything BC specific*
 
@@ -88,7 +88,7 @@ Microsoft MVP for Business Applications<br />
 
 - Install the module and run your *first Business Central in a container* ([video 3.1](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/3.1%20-%20install%20and%20run%20first.mp4))
   - On the workshop host, it is already installed
-  - If you run in your own VM, you need to install install for the following to work
+  - If you run in your own VM, you need to install it for the following to work
 - *"Old school"* setup: Win Auth, C/SIDE, Win Client ([video 3.2](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/3.2%20-%20old%20school.mp4))
 - Connect with *VS Code* and publish your *app* ([video 3.3](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/3.3%20-%20vs%20code.mp4), based on 3.2)
 <br />&nbsp;<br />
@@ -96,7 +96,7 @@ Microsoft MVP for Business Applications<br />
 
 ---
 
-### Track 4<br />Business Central with ACIs and ACR
+### Track 4<br />Business Central with Azure Container Instances
 
 - **Please note**: 
   - This requires an *Azure subscription* and will *cause some small cost*
@@ -104,6 +104,7 @@ Microsoft MVP for Business Applications<br />
 - Get started: Use the *GUI* to create your *first ACI* ([video 4.1](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/4.1%20-%20aci%20gui.mp4))
 - Use the *Azure CLI to automate* creating the ACI ([video 4.2](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/4.2%20-%20aci%20shell.mp4))
 - Use my *quickstart template* to deploy ACIs ([video 4.3](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/4.3%20-%20aci%20quickstart.mp4))
+  - Includes Let's Encrypt certificates for secure communication without warnings
 <br />&nbsp;<br />
 - Interesting if you want to run Docker containers *without installing and maintaining* the base infrastructure
 
@@ -111,7 +112,9 @@ Microsoft MVP for Business Applications<br />
 
 ## Additional notes before you start
 
+- If you want to use the workshop VM, send and email to freddy.kristiansen@microsoft.com with the IP address on the landing page and he will enable access
 - Make sure to **stop all running containers before starting a new track** ([video 0](https://tfenster.github.io/presentations/201810-emeadockerworkshop/video/0%20-%20cleanup.mp4))
+  - Only exception are parts where "depends on previous part" is explicitly noted
 - If actions run for a *longer time*, I have *skipped* the waiting time in the recordings
 - *Green* target circle means *left click*, *yellow* target circle means *right click*
 
