@@ -1,4 +1,4 @@
-## 2 Working with files and volumes
+## 3 Working with files and volumes
 Create a file on your host and copy it into the container
 ```PowerShell
 PS C:\Users\AdminTechDays> "This is a TechDays workshop" | Out-File temp.txt
