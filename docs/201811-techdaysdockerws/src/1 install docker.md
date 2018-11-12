@@ -1,12 +1,15 @@
 ## 1 Install Docker
-Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+Start Admin PowerShell (not ISE, doesn't work well with Docker)  
+`Install-Module -Name DockerMsftProvider -Repository PSGallery -Force`  
 --> accept with "Y"
-Install-Package -Name docker -ProviderName DockerMsftProvider
---> accept with "A"
-Restart-Computer -Force
 
-after restart:
-docker version
+`Install-Package -Name docker -ProviderName DockerMsftProvider`  
+--> accept with "A"
+
+`Restart-Computer -Force`  
+
+after restart:  
+Start Admin PowerShell
 ```
 PS C:\Users\AdminTechDays> docker version
 Client:
