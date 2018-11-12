@@ -1,9 +1,10 @@
 ---
+layout: page
 title: NAV TechDays Docker workshop
 ---
 
 ## 1 Install Docker
-Start Admin PowerShell (not ISE, doesn't work well with Docker)  
+Start PowerShell as admin (not ISE, doesn't work well with Docker)  
 `Install-Module -Name DockerMsftProvider -Repository PSGallery -Force`  
 --> accept with "Y"
 
@@ -13,7 +14,7 @@ Start Admin PowerShell (not ISE, doesn't work well with Docker)
 `Restart-Computer -Force`  
 
 after restart:  
-Start Admin PowerShell
+Start PowerShell as admin
 ```
 PS C:\Users\AdminTechDays> docker version
 Client:
