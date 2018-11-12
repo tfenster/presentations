@@ -1,3 +1,7 @@
+--
+theme: minimal
+--
+
 ## 1 Install Docker
 Start PowerShell as admin (not ISE, as it doesn't work well with Docker)  
 `Install-Module -Name DockerMsftProvider -Repository PSGallery -Force`  
@@ -9,8 +13,8 @@ Start PowerShell as admin (not ISE, as it doesn't work well with Docker)
 `Restart-Computer -Force`  
 
 after restart:  
-Start PowerShell as admin
-```
+Start PowerShell as admin and check install
+```PowerShell
 PS C:\Users\AdminTechDays> docker version
 Client:
  Version:           18.09.0
@@ -31,9 +35,10 @@ Server:
   OS/Arch:          windows/amd64
   Experimental:     false
 ```
-
-docker run microsoft/dotnet-samples:dotnetapp-nanoserver-sac2016
-```
+  
+Run sample container  
+```PowerShell
+PS C:\Users\AdminTechDays> docker run microsoft/dotnet-samples:dotnetapp-nanoserver-sac2016
 Unable to find image 'microsoft/dotnet-samples:dotnetapp-nanoserver-sac2016' locally
 dotnetapp-nanoserver-sac2016: Pulling from microsoft/dotnet-samples
 bce2fbc256ea: Extracting [============>                                      ]  64.62MB/252.7MB
@@ -48,7 +53,7 @@ a22cee092593: Download complete
 df7e5f325fc5: Verifying Checksum
 ```
 and when it is finished
-```
+```PowerShell
 Status: Downloaded newer image for microsoft/dotnet-samples:dotnetapp-nanoserver-sac2016
     Hello from .NET Core!
       __________________
