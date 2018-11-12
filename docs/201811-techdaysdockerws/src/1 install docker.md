@@ -1,5 +1,5 @@
 ## 1 Install Docker
-Start PowerShell as admin (not ISE, doesn't work well with Docker)  
+Start PowerShell as admin (not ISE, as it doesn't work well with Docker)  
 `Install-Module -Name DockerMsftProvider -Repository PSGallery -Force`  
 --> accept with "Y"
 
