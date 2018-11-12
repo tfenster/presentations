@@ -1,6 +1,6 @@
---
+---
 theme: minimal
---
+---
 
 ## 1 Install Docker
 Start PowerShell as admin (not ISE, as it doesn't work well with Docker)  
