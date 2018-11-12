@@ -1,4 +1,5 @@
 ## 1 Install Docker
+Open connection to the first, bigger machine. In the future, I'll refer to it as host as it will be our container host  
 Start PowerShell as admin (not ISE, as it doesn't work well with Docker)  
 `Install-Module -Name DockerMsftProvider -Repository PSGallery -Force`  
 --> accept with "Y"
