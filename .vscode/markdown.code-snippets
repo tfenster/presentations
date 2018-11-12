@@ -102,5 +102,15 @@
         ],
         "description": "multi column layout",
         "scope": "markdown"
+    },
+    "powershellmd": {
+        "prefix": "tfeps",
+        "body": [
+            "```PowerShell",
+            "$0",
+            "```"
+        ],
+        "description": "multi column layout",
+        "scope": "markdown"
     }
 }
