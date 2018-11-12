@@ -1,3 +1,7 @@
+---
+title: NAV TechDays Docker workshop
+---
+
 ## 1 Install Docker
 Start Admin PowerShell (not ISE, doesn't work well with Docker)  
 `Install-Module -Name DockerMsftProvider -Repository PSGallery -Force`  
