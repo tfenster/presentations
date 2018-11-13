@@ -1,0 +1,1 @@
+.\deploy.ps1 -resourceGroupName "prepTechDays" -deploymentName "myDeployment" -parametersFilePath "parameters_big.json"
