@@ -1,4 +1,4 @@
-FROM microsoft/dotnet-framework:4.7.2-sdk AS build
+FROM microsoft/dotnet-framework:4.7.2-sdk-windowsservercore-ltsc2016 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -13,6 +13,6 @@ WORKDIR /app/aspnetapp
 RUN msbuild /p:Configuration=Release
 
 
-FROM microsoft/aspnet:4.7.2-windowsservercore-ltsc2016 AS runtime
+FROM microsoft/aspnet:4.7.2-runtime-windowsservercore-ltsc2016 AS runtime
 WORKDIR /inetpub/wwwroot
 COPY --from=build /app/aspnetapp/. ./

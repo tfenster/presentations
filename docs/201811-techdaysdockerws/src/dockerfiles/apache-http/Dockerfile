@@ -1,7 +1,7 @@
 # This dockerfile utilizes components licensed by their respective owners/authors.
 # Prior to utilizing this file or resulting images please review the respective licenses at: http://www.apache.org/licenses/
 
-FROM microsoft/windowsservercore
+FROM microsoft/windowsservercore:ltsc2016
 
 LABEL Description="Apache" Vendor="Apache Software Foundation" Version="2.4.23"
 
