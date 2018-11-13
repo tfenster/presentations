@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>MVPDays virtual conference is the best thing I've ever heard of!</h1>
+        <h1>NAV TechDays conference is the best thing I've ever heard of!</h1>
         <p class="lead">Here are my details. Sign me up.</p>
     </div>
 

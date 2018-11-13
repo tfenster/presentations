@@ -3,12 +3,12 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>Have you heard about the MVPDays virtual conference?</h1>
-        <p class="lead">A simple, interactive and fun way to learn about technology from MS MVPs.</p>
+        <h1>Have you heard about the NAV TechDays conference?</h1>
+        <p class="lead">The number one tech conference for NAV and Business Central!</p>
         <div style="text-align: right">
             <!-- v2 -->
-            <a href="http://mvpdays.com/" target="_blank">
-                <img src="http://www.mvpdays.com/wp-content/uploads/2015/05/smallmvpdays.jpg"/>
+            <a href="https://www.navtechdays.com/" target="_blank">
+                <img src="https://www.navtechdays.com/templates/default_site/2018.group/images/logo_white_2018.svg"/>
             </a>
         </div>
     </div>
