@@ -386,14 +386,6 @@ PreAutoParameterizationWebConfigConnectionStrings:
   Copying obj\Debug\TransformWebConfig\transformed\Web.config to obj\Debug\CSAutoParameterize\original\Web.config.
 AutoParameterizationWebConfigConnectionStringsCore:
   Transforming Source File: C:\src\SignUp.Web\obj\Debug\TransformWebConfig\transformed\Web.config
-    Applying Transform File: <?xml version="1.0"?>
-          <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-            <connectionStrings>
-              <add
-                connectionString="{% token='$(ReplacableToken_#(parameter)_#(tokennumber))' xpathlocator='name' parameter='$(name)-Web.config Connection String' description='$(name) Connection String used in web.config by the application to access the database.' defaultValue='$(connectionString)' tags='SqlConnectionString' %}"
-                xdt:Transform="SetTokenizedAttributes(connectionString)" xdt:SupressWarnings="True" />
-            </connectionStrings>
-          </configuration>
     No element in the source document matches '/configuration/connectionStrings'
     Not executing SetTokenizedAttributes (transform line 6, 15)
     Output File: obj\Debug\CSAutoParameterize\transformed\Web.config
