@@ -290,3 +290,49 @@ Initialization took 119 seconds
 Ready for connections!
 ```
 Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and use them to get the license information
+## Example 5: custom NST and Web settings
+Configure the container to disable Excel export (NST setting) and change the name of the product visible in the Web Client (Web setting)
+```PowerShell
+PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e customNavSettings=EnableSaveToExcelForRdlcReports=false -e customWebSettings=Productname=TechDays mcr.microsoft.com/businesscentral/onprem
+Initializing...
+Starting Container
+Hostname is b3314515b95a
+PublicDnsName is b3314515b95a
+Using NavUserPassword Authentication
+Starting Local SQL Server
+Starting Internet Information Server
+Creating Self Signed Certificate
+Self Signed Certificate Thumbprint 094F29D88730E55261105D3A14B4806238628DD1
+Modifying Service Tier Config File with Instance Specific Settings
+Modifying Service Tier Config File with settings from environment variable
+Setting EnableSaveToExcelForRdlcReports to false
+Starting NAV Service Tier
+Creating DotNetCore Web Server Instance
+Modifying Web Client config with settings from environment variable
+Creating Productname and setting it to TechDays
+Creating http download site
+Creating Windows user admin
+Setting SA Password and enabling SA
+Creating admin as SQL User and add to sysadmin
+Creating SUPER user
+Container IP Address: 172.29.89.63
+Container Hostname  : b3314515b95a
+Container Dns Name  : b3314515b95a
+Web Client          : https://b3314515b95a/NAV/
+NAV Admin Username  : admin
+NAV Admin Password  : Kaga9565
+Dev. Server         : https://b3314515b95a
+Dev. ServerInstance : NAV
+
+Files:
+http://b3314515b95a:8080/al-2.0.43900.vsix
+http://b3314515b95a:8080/certificate.cer
+
+You are running a container which is 74 days old.
+Microsoft recommends that you always run the latest version of our containers.
+
+Initialization took 63 seconds
+Ready for connections!
+```
+- Open the WebClient at https://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
+- Take an arbitrary report, open the request page and check the send to menu --> should not include Excel
