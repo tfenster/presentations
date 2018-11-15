@@ -37,6 +37,7 @@ Ready for connections!
 - Open the previously installed C/SIDE and connect it to the new server to open CronusGB
 - Import a dev license
 - Create a .NET variable, go to the Assembly List and see "RestSharp" in the Server tab
+
 ## Example 2: Download script from GitHub to activate APIs
 The zip contains an AdditionalSetup.ps1 which runs COD5465 and that initializes the API ([see here](https://github.com/tfenster/nav-docker-samples/blob/initialize-api/))
 ```PowerShell
