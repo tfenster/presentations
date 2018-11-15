@@ -1,4 +1,4 @@
-## 10 Overwrite files
+## 10 Overwrite scripts
 ### Example 1: Persists database files to volume
 First run: The custom [SetupDatabase.ps1](https://github.com/tfenster/nav-docker-samples/blob/simple-volume-persistence/SetupDatabase.ps1) script sees an empty volume folder and moves the database files there
 ```PowerShell

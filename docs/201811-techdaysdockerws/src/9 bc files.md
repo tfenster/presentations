@@ -1,4 +1,4 @@
-## 9 Map files in BC
+## 9 Add files in BC
 ### Examples 1: Add-in DLLs
 ```PowerShell
 PS C:\Users\AdminTechDays> wget https://www.nuget.org/api/v2/package/RestSharp/106.5.4 -OutFile RestSharp.106.5.4.zip
