@@ -6,13 +6,13 @@
             "value": "westeurope"
         },
         "networkInterfaceName": {
-            "value": "preptest648"
+            "value": "tdbig648"
         },
         "enableAcceleratedNetworking": {
             "value": true
         },
         "networkSecurityGroupName": {
-            "value": "prepTest-nsg"
+            "value": "td-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -58,7 +58,7 @@
             ]
         },
         "virtualNetworkName": {
-            "value": "prepTechDays-vnet"
+            "value": "td-vnet"
         },
         "addressPrefix": {
             "value": "10.1.1.0/24"
@@ -70,7 +70,7 @@
             "value": "10.1.1.0/24"
         },
         "publicIpAddressName": {
-            "value": "prepTest-ip"
+            "value": "tdbig-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -78,14 +78,8 @@
         "publicIpAddressSku": {
             "value": "Basic"
         },
-        "publicIpAddressDnsLabel": {
-            "value": "preptest"
-        },
         "virtualMachineName": {
-            "value": "prepTest"
-        },
-        "virtualMachineRG": {
-            "value": "prepTechDays"
+            "value": "tdBig"
         },
         "osDiskType": {
             "value": "Premium_LRS"
@@ -96,14 +90,11 @@
         "adminUsername": {
             "value": "AdminTechDays"
         },
-        "adminPassword": {
-            "value": "Passw0rd*123"
-        },
         "diagnosticsStorageAccountName": {
-            "value": "prepechaysdiag"
+            "value": "tddiag648"
         },
         "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/prepechaysdiag"
+            "value": "Microsoft.Storage/storageAccounts/tddiag"
         },
         "diagnosticsStorageAccountType": {
             "value": "Standard_LRS"

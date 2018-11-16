@@ -1,12 +1,12 @@
 <#
+
+ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
+
  .SYNOPSIS
     Deploys a template to Azure
 
  .DESCRIPTION
     Deploys an Azure Resource Manager template
-
- .PARAMETER subscriptionId
-    The subscription id where the template will be deployed.
 
  .PARAMETER resourceGroupName
     The resource group where the template will be deployed. Can be the name of an existing or a new resource group.
@@ -14,8 +14,6 @@
  .PARAMETER resourceGroupLocation
     Optional, a resource group location. If specified, will try to create a new resource group in this location. If not specified, assumes resource group is existing.
 
- .PARAMETER deploymentName
-    The deployment name.
 
  .PARAMETER templateFilePath
     Optional, path to the template file. Defaults to template.json.
@@ -27,20 +25,15 @@
 param(
  [Parameter(Mandatory=$True)]
  [string]
- $resourceGroupName,
-
- [string]
- $resourceGroupLocation,
+ $id,
 
  [Parameter(Mandatory=$True)]
  [string]
- $deploymentName,
+ $person,
 
+ [Parameter(Mandatory=$True)]
  [string]
- $templateFilePath = "template.json",
-
- [string]
- $parametersFilePath = "parameters.json"
+ $email
 )
 
 <#
@@ -56,16 +49,85 @@ Function RegisterRP {
     Register-AzureRmResourceProvider -ProviderNamespace $ResourceProviderNamespace;
 }
 
+function sendmail($body, $to)
+{
+
+    #.NET-Objekt f�r den SMTP Server wird erstellt
+    $SmtpClient = new-object system.net.mail.smtpClient
+    #.NET-Objekt f�r die MailMessage wird erstellt
+    $MailMessage = New-Object system.net.mail.mailmessage
+    #Dort muss der SMTP Server der Firma eingetragen werden
+    $SmtpClient.Host = "smtphub.global.fum"
+    #Mailadresse von Sript
+    $mailmessage.from = "tfenster@infoma.de" 
+    #Mailgruppe die erstellt wurde um den Benutzern eine Info zu geben dass die Datenbank nun aufgebaut ist
+    $mailmessage.To.add($to)
+    $mailmessage.To.add("tobias.fenster@axians-infoma.de")
+    #Dort wird der Betreff eingetragen
+    $mailmessage.Subject = "Access information for TechDays Docker workshop"
+    #Der Mail-Body ist in Html geschrieben
+    $MailMessage.IsBodyHtml = $true
+    #Body der Html-Datei wird zugewiesen
+    $mailmessage.Body = $body
+    #Mail wird mit der Konfiguration die in $mailMassage hinterlegt um sie Senden zu k�nnen
+    $smtpclient.Send($mailmessage)
+}
+
+function randomchar([string]$str)
+{
+    $rnd = Get-Random -Maximum $str.length
+    [string]$str[$rnd]
+}
+
+function Get-RandomPassword {
+    $cons = 'bcdfghjklmnpqrstvwxz'
+    $voc = 'aeiouy'
+    $numbers = '0123456789'
+
+    ((randomchar $cons).ToUpper() + `
+     (randomchar $voc) + `
+     (randomchar $cons) + `
+     (randomchar $voc) + `
+     (randomchar $cons) + `
+     (randomchar $voc) + `
+     (randomchar $numbers) + `
+     (randomchar $numbers) + `
+     (randomchar $numbers) + `
+     (randomchar $numbers) + `
+     (randomchar $numbers) + `
+     (randomchar $numbers))
+}
+
+
+
 #******************************************************************************
 # Script body
 # Execution begins here
 #******************************************************************************
 $ErrorActionPreference = "Stop"
 
+$resourceGroupName = "td18" + $id;
+$deploymentName = "deploy" + $resourceGroupName;
+$templateFilePath = "template.json";
+$resourceGroupLocation = "West Europe";
+$bigname = $id + "big";
+$smallname = $id + "small";
+$password = Get-RandomPassword;
+Write-Host $password;
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+
+$body = "<p>Hello $person<br />&nbsp;<br />your access information for the Azure VMs provided by <a href=`"https://www.axians.com`">Axians</a>:";
+$body += "<br />&nbsp;<br />Big VM (Docker Host) name: ${bigname}.westeurope.cloudapp.azure.com<br />";
+$body += "Small VM (Client) name: ${smallname}.westeurope.cloudapp.azure.com<br />";
+$body += "User: AdminTechDays, Password: $password<br />";
+$body += "<br />&nbsp;<br />Have fun!<br />";
+$body += "Tobias</p>"
+
 # sign in
 Write-Host "Logging in...";
 #Login-AzureRmAccount;
-$subscriptionId = "afbfb5e1-6f11-4f0d-86f7-83641110b2aa";
+$subscriptionId = "afbfb5e1-6f11-4f0d-86f7-83641110b2aa"; # VS Enterprise
+#$subscriptionId = "83c5fb47-3f1e-4e70-9e21-32540ed41437"; # Tobias Fenster
 
 # select subscription
 Write-Host "Selecting subscription '$subscriptionId'";
@@ -96,9 +158,14 @@ else{
 }
 
 # Start the deployment
-Write-Host "Starting deployment...";
-if(Test-Path $parametersFilePath) {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
-} else {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath;
-}
+Write-Host "Starting big deployment...";
+#New-AzureRmResourceGroupDeployment -Name ($deploymentName + "_big") -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath `
+#    -TemplateParameterFile parameters_big.json -adminPassword $securePassword -publicIpAddressDnsLabel $bigname;
+Write-Host "Starting small deployment...";
+#New-AzureRmResourceGroupDeployment -Name ($deploymentName + "_small") -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath `
+#    -TemplateParameterFile parameters_small.json -adminPassword $securePassword -publicIpAddressDnsLabel $smallname;
+
+Write-Host "Sending mail...";
+sendmail($body, $email);
+
+#Get-AzureRmResourceGroup -Name "td18*" | Remove-AzureRmResourceGroup -Verbose -Force -AsJob
