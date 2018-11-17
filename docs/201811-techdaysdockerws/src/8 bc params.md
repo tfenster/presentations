@@ -164,7 +164,118 @@ Microsoft recommends that you always run the latest version of our containers.
 Initialization took 29 seconds
 Ready for connections!
 ```
-Open http://d5776d8007de/NAV/ and you will see that your change is still there
+Open http://d5776d8007de/NAV/ and you will see that your change is still there.  
+Now let's put this into a compose file. You find one prepared under dockerfiles\bc-external. Stop the running containers, then go there and do a `docker-compose up`. Wait until it has started, test the connection and stop it again by pressing Ctrl-C in the compose process
+```PowerShell
+ docker-compose.exe up
+Creating documents_sql_1_8ad18e6e3f29 ... done
+Creating documents_nav_1_dcde7ae0bf2b ... done
+Attaching to documents_sql_1_495e804e64cd, documents_nav_1_647b459e6a44
+sql_1_495e804e64cd | VERBOSE: Starting SQL Server
+sql_1_495e804e64cd | VERBOSE: Changing SA login credentials
+sql_1_495e804e64cd | VERBOSE: Attaching 1 database(s)
+sql_1_495e804e64cd | VERBOSE: Invoke-Sqlcmd -Query IF EXISTS (SELECT 1 FROM SYS.DATABASES WHERE NAME
+sql_1_495e804e64cd |  = 'CronusGB') BEGIN EXEC sp_detach_db [CronusGB] END;CREATE DATABASE
+sql_1_495e804e64cd | [CronusGB] ON (FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql_1_495e804e64cd | (11-0)_Data.mdf'),(FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql_1_495e804e64cd | (11-0)_Log.ldf') FOR ATTACH;
+sql_1_495e804e64cd | Converting database 'CronusGB' from version 852 to the current version 869.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 852 to version 853.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 853 to version 854.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 854 to version 855.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 855 to version 856.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 856 to version 857.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 857 to version 858.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 858 to version 859.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 859 to version 860.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 860 to version 861.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 861 to version 862.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 862 to version 863.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 863 to version 864.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 864 to version 865.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 865 to version 866.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 866 to version 867.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 867 to version 868.
+sql_1_495e804e64cd | Database 'CronusGB' running the upgrade step from version 868 to version 869.
+sql_1_495e804e64cd | VERBOSE: Started SQL Server.
+sql_1_495e804e64cd |
+nav_1_647b459e6a44 | Initializing...
+nav_1_647b459e6a44 | Starting Container
+nav_1_647b459e6a44 | Hostname is a32291789fba
+nav_1_647b459e6a44 | PublicDnsName is a32291789fba
+nav_1_647b459e6a44 | Using Windows Authentication
+nav_1_647b459e6a44 | Starting Internet Information Server
+nav_1_647b459e6a44 | Import Encryption Key
+sql_1_495e804e64cd | TimeGenerated            EntryType Message
+sql_1_495e804e64cd | -------------            --------- -------
+sql_1_495e804e64cd | 11/17/2018 11:26:26 PM Information Parallel redo is shutdown for database 'C...
+sql_1_495e804e64cd | 11/17/2018 11:26:26 PM Information 0 transactions rolled back in database 'C...
+sql_1_495e804e64cd | 11/17/2018 11:26:26 PM Information 1 transactions rolled forward in database...
+sql_1_495e804e64cd | 11/17/2018 11:26:26 PM Information Parallel redo is started for database 'Cr...
+sql_1_495e804e64cd | 11/17/2018 11:26:26 PM Information Starting up database 'CronusGB'.
+sql_1_495e804e64cd | 11/17/2018 11:26:32 PM Information Parallel redo is shutdown for database 'C...
+sql_1_495e804e64cd | 11/17/2018 11:26:32 PM Information Parallel redo is started for database 'Cr...
+sql_1_495e804e64cd | 11/17/2018 11:26:32 PM Information Starting up database 'CronusGB'.
+nav_1_647b459e6a44 | Modifying Service Tier Config File with Instance Specific Settings
+nav_1_647b459e6a44 | Starting NAV Service Tier
+sql_1_495e804e64cd | 11/17/2018 11:26:33 PM Information Parallel redo is shutdown for database 'C...
+sql_1_495e804e64cd | 11/17/2018 11:26:33 PM Information Parallel redo is started for database 'Cr...
+sql_1_495e804e64cd | 11/17/2018 11:26:33 PM Information Starting up database 'CronusGB'.
+nav_1_647b459e6a44 | Creating DotNetCore Web Server Instance
+nav_1_647b459e6a44 | Creating http download site
+nav_1_647b459e6a44 | Creating Windows user AdminTechDays
+nav_1_647b459e6a44 | Container IP Address: 172.18.13.32
+nav_1_647b459e6a44 | Container Hostname  : a32291789fba
+nav_1_647b459e6a44 | Container Dns Name  : a32291789fba
+nav_1_647b459e6a44 | Web Client          : http://a32291789fba/NAV/
+nav_1_647b459e6a44 | Dev. Server         : http://a32291789fba
+nav_1_647b459e6a44 | Dev. ServerInstance : NAV
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 | Files:
+nav_1_647b459e6a44 | http://a32291789fba:8080/al-0.12.28462.vsix
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 | You are running a container which is 76 days old.
+nav_1_647b459e6a44 | Microsoft recommends that you always run the latest version of our containers.
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 | Initialization took 28 seconds
+nav_1_647b459e6a44 | Ready for connections!
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 | TimeGenerated : 11/17/2018 11:27:40 PM
+nav_1_647b459e6a44 | EntryType     : Warning
+nav_1_647b459e6a44 | Message       : Server instance: NAV
+nav_1_647b459e6a44 |                 Category: Runtime
+nav_1_647b459e6a44 |                 ClientSessionId: d03f077a-6195-4e77-bc33-d1e0945000ea
+nav_1_647b459e6a44 |                 ClientActivityId: 83fb0399-781a-4401-bc3d-084a83dd4309
+nav_1_647b459e6a44 |                 ServerSessionUniqueId: 70615c80-172e-451d-80fe-d5b9b0904cd8
+nav_1_647b459e6a44 |                 ServerActivityId: 0df7ae62-802a-4f6c-b6b7-632273776850
+nav_1_647b459e6a44 |                 EventTime: 11/17/2018 23:27:40
+nav_1_647b459e6a44 |                 Message Action completed successfully, but it took longer than
+nav_1_647b459e6a44 |                 the given threshold.
+nav_1_647b459e6a44 |                   Execution time: 5901 ms
+nav_1_647b459e6a44 |                   Threshold: 1000 ms
+nav_1_647b459e6a44 |                   Message: InvokeOpenCompany
+nav_1_647b459e6a44 |                 ProcessId: 13184
+nav_1_647b459e6a44 |                 Tag: 00000MA
+nav_1_647b459e6a44 |                 ThreadId: 6
+nav_1_647b459e6a44 |                 CounterInformation:
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 |
+nav_1_647b459e6a44 |
+Gracefully stopping... (press Ctrl+C again to force)
+Stopping documents_nav_1_647b459e6a44 ... done
+Stopping documents_sql_1_495e804e64cd ... done
+```
+If that was our production environment, how could we get a copy, e.g. as staging environment? Copy the database files and also the compose file
+```PowerShell
+PS C:\Users\AdminTechDays> copy -r .\databases\ databases_staging
+PS C:\Users\AdminTechDays> cd dockerfiles\bc-external
+PS C:\Users\AdminTechDays\dockerfiles\bc-external> copy .\docker-compose.yml .\docker-compose.staging.yml
+```
+Now edit the docker-compose.staging.yml so that the two services are called sql-staging and nav-staging, the sql hostname is sql-staging, the volume in sql points to databases_staging and the database server and depends in NAV is called sql-staging. With that, let's do a compose up again
+```PowerShell
+
+```
 ## Example 3: Change ports
 Create a new BC sandbox container with port 7050 for the developer services and disabled SSL so that we don't have to tinker with cert files
 ```PowerShell

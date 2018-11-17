@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  
+  sql:
+    image: microsoft/mssql-server-windows-express
+    hostname: sql
+    environment: 
+      - ACCEPT_EULA=Y
+      - sa_password=Passw0rd*123
+      - attach_dbs=[{'dbName':'CronusGB','dbFiles':['C:\\databases\\CronusGB\\Demo Database NAV (11-0)_Data.mdf','C:\\databases\\CronusGB\\Demo Database NAV (11-0)_Log.ldf']}]
+    networks:
+      - app-net
+    volumes: 
+      - C:/Users/AdminTechDays/databases/:C:/databases/
+
+  nav:
+    image: microsoft/dynamics-nav:2018-gb
+    environment: 
+      - ACCEPT_EULA=Y
+      - auth=windows
+      - username=AdminTechDays
+      - password=Noceli587198
+      - databaseusername=sa
+      - databasepassword=Passw0rd*123
+      - databaseserver=sql 
+      - databasename=CronusGB 
+    depends_on:
+      - sql
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external:
+      name: nat
