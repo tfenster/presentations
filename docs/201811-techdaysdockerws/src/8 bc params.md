@@ -272,9 +272,81 @@ PS C:\Users\AdminTechDays> copy -r .\databases\ databases_staging
 PS C:\Users\AdminTechDays> cd dockerfiles\bc-external
 PS C:\Users\AdminTechDays\dockerfiles\bc-external> copy .\docker-compose.yml .\docker-compose.staging.yml
 ```
-Now edit the docker-compose.staging.yml so that the two services are called sql-staging and nav-staging, the sql hostname is sql-staging, the volume in sql points to databases_staging and the database server and depends in NAV is called sql-staging. With that, let's do a compose up again
+Now edit the docker-compose.staging.yml so that the two services are called sql-staging and nav-staging, the sql hostname is sql-staging, the volume in sql points to databases_staging and the database server and depends in NAV is called sql-staging. With that, let's do a compose up again, this time with `-d` to start it in the background. After the creation has started we also start our regular environment as well
 ```PowerShell
+PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker-compose.exe -f .\docker-compose.staging.yml up -d
+Creating bc-external_sql-staging_1_d5aa48bd4288 ... done
+Creating bc-external_nav-staging_1_3604e1238e4f ... done
+PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker-compose.exe -f .\docker-compose.yml up -d
+WARNING: Found orphan containers (bc-external_nav-staging_1_1dad5992619f, bc-external_sql-staging_1_7108a74a56cf) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
+Creating bc-external_sql_1_36a21b991a41 ... done
+Creating bc-external_nav_1_157a079f1100 ... done
+```
+Now we have four containers: Two SQL Servers and two NAV Servers, one each for production and staging. Connect to those WebClients to make sure you can change the data independently
+```PowerShell
+PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker ps
+CONTAINER ID        IMAGE                                    COMMAND                  CREATED             STATUS                   PORTS                                                NAMES
+31b3b4fb1a1f        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   2 minutes ago       Up 2 minutes (healthy)   80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav_1_7d478c994631
+456a31e39ccc        microsoft/mssql-server-windows-express   "powershell -Command…"   2 minutes ago       Up 2 minutes                                                                  bc-external_sql_1_d28b0ce49dc1
+4b38889c11e6        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   2 minutes ago       Up 2 minutes (healthy)   80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav-staging_1_1dad5992619f
+b55edd6a1318        microsoft/mssql-server-windows-express   "powershell -Command…"   2 minutes ago       Up 2 minutes                                                                  bc-external_sql-staging_1_7108a74a56cf
+PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker logs 31
+Initializing...
+Starting Container
+Hostname is 31b3b4fb1a1f
+PublicDnsName is 31b3b4fb1a1f
+Using Windows Authentication
+Starting Internet Information Server
+Import Encryption Key
+Modifying Service Tier Config File with Instance Specific Settings
+Starting NAV Service Tier
+Creating DotNetCore Web Server Instance
+Creating http download site
+Creating Windows user AdminTechDays
+Container IP Address: 172.18.3.140
+Container Hostname  : 31b3b4fb1a1f
+Container Dns Name  : 31b3b4fb1a1f
+Web Client          : http://31b3b4fb1a1f/NAV/
+Dev. Server         : http://31b3b4fb1a1f
+Dev. ServerInstance : NAV
 
+Files:
+http://31b3b4fb1a1f:8080/al-0.12.28462.vsix
+
+You are running a container which is 76 days old.
+Microsoft recommends that you always run the latest version of our containers.
+
+Initialization took 31 seconds
+Ready for connections!
+PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker logs 4b
+Initializing...
+Starting Container
+Hostname is 4b38889c11e6
+PublicDnsName is 4b38889c11e6
+Using Windows Authentication
+Starting Internet Information Server
+Import Encryption Key
+Modifying Service Tier Config File with Instance Specific Settings
+Starting NAV Service Tier
+Creating DotNetCore Web Server Instance
+Creating http download site
+Creating Windows user AdminTechDays
+Container IP Address: 172.18.2.221
+Container Hostname  : 4b38889c11e6
+Container Dns Name  : 4b38889c11e6
+Web Client          : http://4b38889c11e6/NAV/
+Dev. Server         : http://4b38889c11e6
+Dev. ServerInstance : NAV
+
+Files:
+http://4b38889c11e6:8080/al-0.12.28462.vsix
+
+You are running a container which is 76 days old.
+Microsoft recommends that you always run the latest version of our containers.
+
+Initialization took 32 seconds
+Ready for connections!
+PS C:\Users\AdminTechDays\dockerfiles\bc-external>
 ```
 ## Example 3: Change ports
 Create a new BC sandbox container with port 7050 for the developer services and disabled SSL so that we don't have to tinker with cert files
