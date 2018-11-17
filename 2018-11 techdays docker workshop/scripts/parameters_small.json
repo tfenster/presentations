@@ -28,6 +28,32 @@
                         "destinationAddressPrefix": "*",
                         "destinationPortRange": "3389"
                     }
+                },
+                {
+                    "name": "HTTP",
+                    "properties": {
+                        "priority": 310,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "80"
+                    }
+                },
+                {
+                    "name": "HTTPS",
+                    "properties": {
+                        "priority": 320,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "443"
+                    }
                 }
             ]
         },
@@ -63,9 +89,6 @@
         },
         "adminUsername": {
             "value": "AdminTechDays"
-        },
-        "diagnosticsStorageAccountName": {
-            "value": "tddiag648"
         },
         "diagnosticsStorageAccountId": {
             "value": "Microsoft.Storage/storageAccounts/tddiag"

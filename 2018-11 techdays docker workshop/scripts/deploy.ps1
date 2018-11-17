@@ -23,15 +23,15 @@
 #>
 
 param(
- [Parameter(Mandatory=$True)]
+ [Parameter(Mandatory=$True, Position=0)]
  [string]
  $id,
 
- [Parameter(Mandatory=$True)]
+ [Parameter(Mandatory=$True, Position=1)]
  [string]
  $person,
 
- [Parameter(Mandatory=$True)]
+ [Parameter(Mandatory=$True, Position=2)]
  [string]
  $email
 )
@@ -106,28 +106,32 @@ function Get-RandomPassword {
 #******************************************************************************
 $ErrorActionPreference = "Stop"
 
+Write-Host "Got called with $id, $person, $email"
+
 $resourceGroupName = "td18" + $id;
 $deploymentName = "deploy" + $resourceGroupName;
-$templateFilePath = "template.json";
+$diagStorAccName = "diag" + $id;
+$templateFilePath = "C:\Users\tfenster\Github\presentations\2018-11 techdays docker workshop\scripts\template.json";
 $resourceGroupLocation = "West Europe";
 $bigname = $id + "big";
 $smallname = $id + "small";
 $password = Get-RandomPassword;
-Write-Host $password;
+Write-Host $password
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 
-$body = "<p>Hello $person<br />&nbsp;<br />your access information for the Azure VMs provided by <a href=`"https://www.axians.com`">Axians</a>:";
+$body = "<p>Hello ${person},<br />&nbsp;<br />your access information via RDP for the Azure VMs provided by <a href=`"https://www.axians.com`">Axians</a> for the NAV TechDays 2018 Docker workshop:";
 $body += "<br />&nbsp;<br />Big VM (Docker Host) name: ${bigname}.westeurope.cloudapp.azure.com<br />";
 $body += "Small VM (Client) name: ${smallname}.westeurope.cloudapp.azure.com<br />";
 $body += "User: AdminTechDays, Password: $password<br />";
-$body += "<br />&nbsp;<br />Have fun!<br />";
-$body += "Tobias</p>"
+$body += "&nbsp;<br />Have fun!<br />";
+$body += "Tobias<br />";
+$body += "<a href=`"https://twitter.com/tobiasfenster`">@tobiasfenster</a> | <a href=`"https://techblog.axians-infoma.com`">techblog</a> | <a href=`"mailto:tobias.fenster@axians-infoma.de`">tobias.fenster@axians-infoma.de</a></p>";
 
 # sign in
 Write-Host "Logging in...";
 #Login-AzureRmAccount;
-$subscriptionId = "afbfb5e1-6f11-4f0d-86f7-83641110b2aa"; # VS Enterprise
-#$subscriptionId = "83c5fb47-3f1e-4e70-9e21-32540ed41437"; # Tobias Fenster
+#$subscriptionId = "afbfb5e1-6f11-4f0d-86f7-83641110b2aa"; # VS Enterprise
+$subscriptionId = "83c5fb47-3f1e-4e70-9e21-32540ed41437"; # Tobias Fenster
 
 # select subscription
 Write-Host "Selecting subscription '$subscriptionId'";
@@ -159,13 +163,15 @@ else{
 
 # Start the deployment
 Write-Host "Starting big deployment...";
-#New-AzureRmResourceGroupDeployment -Name ($deploymentName + "_big") -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath `
-#    -TemplateParameterFile parameters_big.json -adminPassword $securePassword -publicIpAddressDnsLabel $bigname;
+New-AzureRmResourceGroupDeployment -Name ($deploymentName + "_big") -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath `
+    -TemplateParameterFile "C:\Users\tfenster\Github\presentations\2018-11 techdays docker workshop\scripts\parameters_big.json" `
+    -adminPassword $securePassword -publicIpAddressDnsLabel $bigname -diagnosticsStorageAccountName $diagStorAccName;
 Write-Host "Starting small deployment...";
-#New-AzureRmResourceGroupDeployment -Name ($deploymentName + "_small") -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath `
-#    -TemplateParameterFile parameters_small.json -adminPassword $securePassword -publicIpAddressDnsLabel $smallname;
+New-AzureRmResourceGroupDeployment -Name ($deploymentName + "_small") -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath `
+    -TemplateParameterFile "C:\Users\tfenster\Github\presentations\2018-11 techdays docker workshop\scripts\parameters_small.json" `
+    -adminPassword $securePassword -publicIpAddressDnsLabel $smallname -diagnosticsStorageAccountName $diagStorAccName;
 
 Write-Host "Sending mail...";
-sendmail($body, $email);
+sendmail $body $email;
 
 #Get-AzureRmResourceGroup -Name "td18*" | Remove-AzureRmResourceGroup -Verbose -Force -AsJob

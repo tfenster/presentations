@@ -90,9 +90,6 @@
         "adminUsername": {
             "value": "AdminTechDays"
         },
-        "diagnosticsStorageAccountName": {
-            "value": "tddiag648"
-        },
         "diagnosticsStorageAccountId": {
             "value": "Microsoft.Storage/storageAccounts/tddiag"
         },
