@@ -16,6 +16,7 @@ services:
 
   nav:
     image: microsoft/dynamics-nav:2018-gb
+    hostname: nav
     environment: 
       - ACCEPT_EULA=Y
       - auth=windows

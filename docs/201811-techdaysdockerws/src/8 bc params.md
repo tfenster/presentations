@@ -1,5 +1,176 @@
 ## 8 Business Central parameters
-### Example 1: Use Windows authentication and enable ClickOnce
+### Example 1: Change ports
+Create a new BC sandbox container with port 7050 for the developer services and disabled SSL so that we don't have to tinker with cert files
+```PowerShell
+PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e developerServicesPort=7050 microsoft/bcsandbox:us
+Initializing...
+Starting Container
+Hostname is 7186f3f519bb
+PublicDnsName is 7186f3f519bb
+Using NavUserPassword Authentication
+Starting Local SQL Server
+Starting Internet Information Server
+Creating Self Signed Certificate
+Self Signed Certificate Thumbprint 3544BA82651F0B0F1D2E6A1AAF5CE4D2BE3201EA
+Modifying Service Tier Config File with Instance Specific Settings
+Starting Service Tier
+Creating DotNetCore Web Server Instance
+Enabling Financials User Experience
+Creating http download site
+Creating Windows user admin
+Setting SA Password and enabling SA
+Creating admin as SQL User and add to sysadmin
+Creating SUPER user
+Container IP Address: 172.29.90.253
+Container Hostname  : 7186f3f519bb
+Container Dns Name  : 7186f3f519bb
+Web Client          : http://7186f3f519bb/NAV/
+Admin Username      : admin
+Admin Password      : Ciro9165
+Dev. Server         : http://7186f3f519bb
+Dev. ServerInstance : NAV
+
+Files:
+http://7186f3f519bb:8080/al-2.0.48254.vsix
+
+Initialization took 73 seconds
+Ready for connections!
+```
+Download http://7186f3f519bb:8080/al-2.0.48254.vsix and install it in VS Code. Run command "AL: Go!" in VS code and select "Your own server" when asked to choose a server. Change the server in launch.json to http://7186f3f519bb, add a new setting for port 7050 and set the serverInstance to NAV
+```JSON
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "al",
+            "request": "launch",
+            "name": "Your own server",
+            "server": "http://7186f3f519bb",
+            "port": 7050,
+            "serverInstance": "NAV",
+            "authentication": "UserPassword",
+            "startupObjectId": 22,
+            "startupObjectType": "Page",
+            "breakOnError": true
+        }
+    ]
+}
+```
+Hit F5 to publish your application and enter the username and password from your container log
+### Example 2: Bring your own licensefile
+Share your licensefile somewhere accessible and add that URL as env param to your docker run command. We are also enabling ClickOnce for easy access to the license information through C/SIDE
+```PowerShell
+PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e licensefile=https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf -e clickonce=y mcr.microsoft.com/businesscentral/onprem
+Unable to find image 'mcr.microsoft.com/businesscentral/onprem:latest' locally
+latest: Pulling from businesscentral/onprem
+3889bb8d808b: Already exists
+6631c2d2a60c: Already exists
+b09a40692579: Already exists
+4c7043fb7dcf: Already exists
+441033c6fa66: Already exists
+5c137b6fb78e: Already exists
+c5690c9b6567: Already exists
+783086f9dfcf: Already exists
+eec8ca706f18: Already exists
+2fa2abf24848: Already exists
+af0072000551: Already exists
+1dc934206b95: Already exists
+f89b887cfa8c: Already exists
+037a25574f02: Already exists
+844f63f71ea9: Already exists
+471567da4404: Already exists
+d5a84de5a425: Already exists
+d5e80be3d5de: Already exists
+Digest: sha256:87ff32982ddd6357e61c7924e3f67cc979e9ff02bebb9624a462498b48eabbfe
+Status: Downloaded newer image for mcr.microsoft.com/businesscentral/onprem:latest
+Initializing...
+Starting Container
+Hostname is 74bd7bd18296
+PublicDnsName is 74bd7bd18296
+Using NavUserPassword Authentication
+Starting Local SQL Server
+Starting Internet Information Server
+Creating Self Signed Certificate
+Self Signed Certificate Thumbprint 0D1FCCEA03D4545106C92042D461C8005FB03149
+Modifying Service Tier Config File with Instance Specific Settings
+Starting NAV Service Tier
+Downloading license file 'https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf'
+Import License
+Creating DotNetCore Web Server Instance
+Creating http download site
+Creating Windows user admin
+Setting SA Password and enabling SA
+Creating admin as SQL User and add to sysadmin
+Creating SUPER user
+Creating ClickOnce Manifest
+Container IP Address: 172.29.83.174
+Container Hostname  : 74bd7bd18296
+Container Dns Name  : 74bd7bd18296
+Web Client          : https://74bd7bd18296/NAV/
+NAV Admin Username  : admin
+NAV Admin Password  : Gogi0605
+Dev. Server         : https://74bd7bd18296
+Dev. ServerInstance : NAV
+ClickOnce Manifest  : http://74bd7bd18296:8080/NAV
+
+Files:
+http://74bd7bd18296:8080/al-2.0.43900.vsix
+http://74bd7bd18296:8080/certificate.cer
+
+You are running a container which is 72 days old.
+Microsoft recommends that you always run the latest version of our containers.
+
+Initialization took 119 seconds
+Ready for connections!
+```
+Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and use them to get the license information
+### Example 3: custom NST and Web settings
+Configure the container to disable Excel export (NST setting) and change the name of the product visible in the Web Client (Web setting)
+```PowerShell
+PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e customNavSettings=EnableSaveToExcelForRdlcReports=false -e customWebSettings=Productname=TechDays mcr.microsoft.com/businesscentral/onprem
+Initializing...
+Starting Container
+Hostname is b3314515b95a
+PublicDnsName is b3314515b95a
+Using NavUserPassword Authentication
+Starting Local SQL Server
+Starting Internet Information Server
+Creating Self Signed Certificate
+Self Signed Certificate Thumbprint 094F29D88730E55261105D3A14B4806238628DD1
+Modifying Service Tier Config File with Instance Specific Settings
+Modifying Service Tier Config File with settings from environment variable
+Setting EnableSaveToExcelForRdlcReports to false
+Starting NAV Service Tier
+Creating DotNetCore Web Server Instance
+Modifying Web Client config with settings from environment variable
+Creating Productname and setting it to TechDays
+Creating http download site
+Creating Windows user admin
+Setting SA Password and enabling SA
+Creating admin as SQL User and add to sysadmin
+Creating SUPER user
+Container IP Address: 172.29.89.63
+Container Hostname  : b3314515b95a
+Container Dns Name  : b3314515b95a
+Web Client          : https://b3314515b95a/NAV/
+NAV Admin Username  : admin
+NAV Admin Password  : Kaga9565
+Dev. Server         : https://b3314515b95a
+Dev. ServerInstance : NAV
+
+Files:
+http://b3314515b95a:8080/al-2.0.43900.vsix
+http://b3314515b95a:8080/certificate.cer
+
+You are running a container which is 74 days old.
+Microsoft recommends that you always run the latest version of our containers.
+
+Initialization took 63 seconds
+Ready for connections!
+```
+- Open the WebClient at https://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
+- Take an arbitrary report, open the request page and check the send to menu --> should not include Excel
+### Example 4: Use Windows authentication and enable ClickOnce
 Start a container with windows auth, give it your local username and password and enable ClickOnce
 ```PowerShell
 PS C:\Users\AdminTechDays\dockerfiles> docker run -e accept_eula=y -e auth=windows -e username=AdminTechDays -e password=Passw0rd*123 -e clickonce=y microsoft/dynamics-nav:2018-gb
@@ -63,7 +234,7 @@ Ready for connections!
 ```
 Test SSO by opening http://4327d66c1e57/NAV/ in your browser and install the Windows Client by going to http://4327d66c1e57:8080/NAV with IE and install it through ClickOnce. You can also install and use C/SIDE through ClickOnce including table schema syncs as we are using win auth. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site. Connect it to 4327d66c1e57 as server  
 Don't stop the container as we'll use the database in the next example
-## Example 2: Connect the container to an external SQL Server
+### Example 5: Connect the container to an external SQL Server
 We want to use the database from our previous container, so let's enter it and stop SQL server so that we can savely copy the files
 ```PowerShell
 PS C:\Users\AdminTechDays> docker exec -ti 43 powershell
@@ -73,7 +244,7 @@ Copyright (C) 2016 Microsoft Corporation. All rights reserved.
 PS C:\> stop-service MSSQL`$SQLEXPRESS
 PS C:\> exit
 ```
-Create a folder on the host for the databases and copy the files, make sure they were copied
+Copy the database files to the host and make sure they were copied
 ```PowerShell
 PS C:\Users\AdminTechDays> docker cp 43:c:\databases\ .
 PS C:\Users\AdminTechDays> dir .\databases\CronusGB\
@@ -266,35 +437,148 @@ Gracefully stopping... (press Ctrl+C again to force)
 Stopping documents_nav_1_647b459e6a44 ... done
 Stopping documents_sql_1_495e804e64cd ... done
 ```
-If that was our production environment, how could we get a copy, e.g. as staging environment? Copy the database files and also the compose file
+If that was our production environment, how could we get a copy, e.g. as staging and a test environment? Copy the database files
 ```PowerShell
-PS C:\Users\AdminTechDays> copy -r .\databases\ databases_staging
-PS C:\Users\AdminTechDays> cd dockerfiles\bc-external
-PS C:\Users\AdminTechDays\dockerfiles\bc-external> copy .\docker-compose.yml .\docker-compose.staging.yml
+PS C:\Users\AdminTechDays> copy -r .\databases\ databases-staging
+PS C:\Users\AdminTechDays> copy -r .\databases\ databases-test
 ```
-Now edit the docker-compose.staging.yml so that the two services are called sql-staging and nav-staging, the sql hostname is sql-staging, the volume in sql points to databases_staging and the database server and depends in NAV is called sql-staging. With that, let's do a compose up again, this time with `-d` to start it in the background. After the creation has started we also start our regular environment as well
+Now edit the docker-compose.yml so that the two services are are copied to sql-staging / nav-staging and sql-test / nav-test. You also need to adjust the sql hostname, the volume in sql and the database server and also the "depends" in NAV. With that, let's do a compose up again
 ```PowerShell
-PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker-compose.exe -f .\docker-compose.staging.yml up -d
-Creating bc-external_sql-staging_1_d5aa48bd4288 ... done
-Creating bc-external_nav-staging_1_3604e1238e4f ... done
-PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker-compose.exe -f .\docker-compose.yml up -d
-WARNING: Found orphan containers (bc-external_nav-staging_1_1dad5992619f, bc-external_sql-staging_1_7108a74a56cf) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
-Creating bc-external_sql_1_36a21b991a41 ... done
-Creating bc-external_nav_1_157a079f1100 ... done
+Creating bc-external_sql_1_b448f6d92269         ... done
+Creating bc-external_sql-test_1_c1e26c159bdf    ... done
+Creating bc-external_sql-staging_1_1d77f98d654c ... done
+Creating bc-external_nav-staging_1_42370e155057 ... done
+Creating bc-external_nav_1_e46e0e8724cd         ... done
+Creating bc-external_nav-test_1_77d0e193fb49    ... done
+Attaching to bc-external_sql-staging_1_466e42b4810d, bc-external_sql_1_f41f22f8daea, bc-external_sql-test_1_81f791c2b742
+, bc-external_nav-staging_1_4495eeca3b1a, bc-external_nav_1_e531701a9ccb, bc-external_nav-test_1_4a241828df40
+sql-staging_1_466e42b4810d | VERBOSE: Starting SQL Server
+sql_1_f41f22f8daea | VERBOSE: Starting SQL Server
+sql-test_1_81f791c2b742 | VERBOSE: Starting SQL Server
+sql-staging_1_466e42b4810d | VERBOSE: Changing SA login credentials
+sql-test_1_81f791c2b742 | VERBOSE: Changing SA login credentials
+sql_1_f41f22f8daea | VERBOSE: Changing SA login credentials
+sql-staging_1_466e42b4810d | VERBOSE: Attaching 1 database(s)
+sql-staging_1_466e42b4810d | VERBOSE: Invoke-Sqlcmd -Query IF EXISTS (SELECT 1 FROM SYS.DATABASES WHERE NAME
+sql-staging_1_466e42b4810d |  = 'CronusGB') BEGIN EXEC sp_detach_db [CronusGB] END;CREATE DATABASE
+sql-staging_1_466e42b4810d | [CronusGB] ON (FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql-staging_1_466e42b4810d | (11-0)_Data.mdf'),(FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql-staging_1_466e42b4810d | (11-0)_Log.ldf') FOR ATTACH;
+sql_1_f41f22f8daea | VERBOSE: Attaching 1 database(s)
+sql-test_1_81f791c2b742 | VERBOSE: Attaching 1 database(s)
+sql-test_1_81f791c2b742 | VERBOSE: Invoke-Sqlcmd -Query IF EXISTS (SELECT 1 FROM SYS.DATABASES WHERE NAME
+sql-test_1_81f791c2b742 |  = 'CronusGB') BEGIN EXEC sp_detach_db [CronusGB] END;CREATE DATABASE
+sql-test_1_81f791c2b742 | [CronusGB] ON (FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql-test_1_81f791c2b742 | (11-0)_Data.mdf'),(FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql-test_1_81f791c2b742 | (11-0)_Log.ldf') FOR ATTACH;
+sql_1_f41f22f8daea | VERBOSE: Invoke-Sqlcmd -Query IF EXISTS (SELECT 1 FROM SYS.DATABASES WHERE NAME
+sql_1_f41f22f8daea |  = 'CronusGB') BEGIN EXEC sp_detach_db [CronusGB] END;CREATE DATABASE
+sql_1_f41f22f8daea | [CronusGB] ON (FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql_1_f41f22f8daea | (11-0)_Data.mdf'),(FILENAME = N'C:\databases\CronusGB\Demo Database NAV
+sql_1_f41f22f8daea | (11-0)_Log.ldf') FOR ATTACH;
+sql-test_1_81f791c2b742 | VERBOSE: Started SQL Server.
+sql-staging_1_466e42b4810d | VERBOSE: Started SQL Server.
+sql_1_f41f22f8daea | VERBOSE: Started SQL Server.
+sql-test_1_81f791c2b742 |
+sql_1_f41f22f8daea |
+sql-staging_1_466e42b4810d |
+nav-staging_1_4495eeca3b1a | Initializing...
+nav-staging_1_4495eeca3b1a | Starting Container
+nav-staging_1_4495eeca3b1a | Hostname is nav-staging
+nav-staging_1_4495eeca3b1a | PublicDnsName is nav-staging
+nav-staging_1_4495eeca3b1a | Using Windows Authentication
+nav_1_e531701a9ccb | Initializing...
+nav-test_1_4a241828df40 | Initializing...
+nav_1_e531701a9ccb | Starting Container
+nav_1_e531701a9ccb | Hostname is nav
+nav_1_e531701a9ccb | PublicDnsName is nav
+nav_1_e531701a9ccb | Using Windows Authentication
+nav-test_1_4a241828df40 | Starting Container
+nav-test_1_4a241828df40 | Hostname is nav-test
+nav-test_1_4a241828df40 | PublicDnsName is nav-test
+nav-test_1_4a241828df40 | Using Windows Authentication
+nav-staging_1_4495eeca3b1a | Starting Internet Information Server
+nav_1_e531701a9ccb | Starting Internet Information Server
+nav-test_1_4a241828df40 | Starting Internet Information Server
+nav-staging_1_4495eeca3b1a | Import Encryption Key
+nav_1_e531701a9ccb | Import Encryption Key
+nav-test_1_4a241828df40 | Import Encryption Key
+nav_1_e531701a9ccb | Modifying Service Tier Config File with Instance Specific Settings
+nav-staging_1_4495eeca3b1a | Modifying Service Tier Config File with Instance Specific Settings
+nav-test_1_4a241828df40 | Modifying Service Tier Config File with Instance Specific Settings
+nav_1_e531701a9ccb | Starting NAV Service Tier
+nav-staging_1_4495eeca3b1a | Starting NAV Service Tier
+nav-test_1_4a241828df40 | Starting NAV Service Tier
+nav_1_e531701a9ccb | Creating DotNetCore Web Server Instance
+nav-test_1_4a241828df40 | Creating DotNetCore Web Server Instance
+nav-staging_1_4495eeca3b1a | Creating DotNetCore Web Server Instance
+nav-staging_1_4495eeca3b1a | Creating http download site
+nav_1_e531701a9ccb | Creating http download site
+nav-test_1_4a241828df40 | Creating http download site
+nav_1_e531701a9ccb | Creating Windows user AdminTechDays
+nav-test_1_4a241828df40 | Creating Windows user AdminTechDays
+nav-staging_1_4495eeca3b1a | Creating Windows user AdminTechDays
+nav_1_e531701a9ccb | Container IP Address: 172.27.162.162
+nav_1_e531701a9ccb | Container Hostname  : nav
+nav_1_e531701a9ccb | Container Dns Name  : nav
+nav_1_e531701a9ccb | Web Client          : http://nav/NAV/
+nav_1_e531701a9ccb | Dev. Server         : http://nav
+nav_1_e531701a9ccb | Dev. ServerInstance : NAV
+nav_1_e531701a9ccb |
+nav_1_e531701a9ccb | Files:
+nav_1_e531701a9ccb | http://nav:8080/al-0.12.28462.vsix
+nav_1_e531701a9ccb |
+nav_1_e531701a9ccb | You are running a container which is 78 days old.
+nav_1_e531701a9ccb | Microsoft recommends that you always run the latest version of our containers.
+nav_1_e531701a9ccb |
+nav_1_e531701a9ccb | Initialization took 37 seconds
+nav_1_e531701a9ccb | Ready for connections!
+nav-test_1_4a241828df40 | Container IP Address: 172.27.171.190
+nav-test_1_4a241828df40 | Container Hostname  : nav-test
+nav-test_1_4a241828df40 | Container Dns Name  : nav-test
+nav-test_1_4a241828df40 | Web Client          : http://nav-test/NAV/
+nav-test_1_4a241828df40 | Dev. Server         : http://nav-test
+nav-test_1_4a241828df40 | Dev. ServerInstance : NAV
+nav-test_1_4a241828df40 |
+nav-test_1_4a241828df40 | Files:
+nav-test_1_4a241828df40 | http://nav-test:8080/al-0.12.28462.vsix
+nav-test_1_4a241828df40 |
+nav-test_1_4a241828df40 | You are running a container which is 78 days old.
+nav-test_1_4a241828df40 | Microsoft recommends that you always run the latest version of our containers.
+nav-test_1_4a241828df40 |
+nav-test_1_4a241828df40 | Initialization took 37 seconds
+nav-test_1_4a241828df40 | Ready for connections!
+nav-staging_1_4495eeca3b1a | Container IP Address: 172.27.171.167
+nav-staging_1_4495eeca3b1a | Container Hostname  : nav-staging
+nav-staging_1_4495eeca3b1a | Container Dns Name  : nav-staging
+nav-staging_1_4495eeca3b1a | Web Client          : http://nav-staging/NAV/
+nav-staging_1_4495eeca3b1a | Dev. Server         : http://nav-staging
+nav-staging_1_4495eeca3b1a | Dev. ServerInstance : NAV
+nav-staging_1_4495eeca3b1a |
+nav-staging_1_4495eeca3b1a | Files:
+nav-staging_1_4495eeca3b1a | http://nav-staging:8080/al-0.12.28462.vsix
+nav-staging_1_4495eeca3b1a |
+nav-staging_1_4495eeca3b1a | You are running a container which is 78 days old.
+nav-staging_1_4495eeca3b1a | Microsoft recommends that you always run the latest version of our containers.
+nav-staging_1_4495eeca3b1a |
+nav-staging_1_4495eeca3b1a | Initialization took 37 seconds
+nav-staging_1_4495eeca3b1a | Ready for connections!
 ```
-Now we have four containers: Two SQL Servers and two NAV Servers, one each for production and staging. Connect to those WebClients to make sure you can change the data independently
+Now we have six containers: Three SQL Servers and three NAV Servers, one each for production, staging and test. Connect to those WebClients to make sure you can change the data independently
 ```PowerShell
-PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker ps
-CONTAINER ID        IMAGE                                    COMMAND                  CREATED             STATUS                   PORTS                                                NAMES
-31b3b4fb1a1f        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   2 minutes ago       Up 2 minutes (healthy)   80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav_1_7d478c994631
-456a31e39ccc        microsoft/mssql-server-windows-express   "powershell -Command…"   2 minutes ago       Up 2 minutes                                                                  bc-external_sql_1_d28b0ce49dc1
-4b38889c11e6        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   2 minutes ago       Up 2 minutes (healthy)   80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav-staging_1_1dad5992619f
-b55edd6a1318        microsoft/mssql-server-windows-express   "powershell -Command…"   2 minutes ago       Up 2 minutes                                                                  bc-external_sql-staging_1_7108a74a56cf
+CONTAINER ID        IMAGE                                    COMMAND                  CREATED             STATUS                     PORTS                                                NAMES
+086bf0072d2d        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   3 minutes ago       Up 3 minutes (unhealthy)   80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav-staging_1_27b0ab3e1ce7
+6eb8012e6899        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   3 minutes ago       Up 3 minutes (healthy)     80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav-test_1_a3c0488f8e48
+eb6499b4f21a        microsoft/dynamics-nav:2018-gb           "powershell -Command…"   3 minutes ago       Up 3 minutes (unhealthy)   80/tcp, 443/tcp, 1433/tcp, 7045-7049/tcp, 8080/tcp   bc-external_nav_1_f4657b9d7cef
+97277d51f388        microsoft/mssql-server-windows-express   "powershell -Command…"   3 minutes ago       Up 3 minutes                                                                    bc-external_sql-staging_1_f3719bdff17f
+4ad4ad2669d1        microsoft/mssql-server-windows-express   "powershell -Command…"   3 minutes ago       Up 3 minutes                                                                    bc-external_sql-test_1_d69e31aefce3
+34c06590f6ab        microsoft/mssql-server-windows-express   "powershell -Command…"   14 minutes ago      Up 3 minutes                                                                    bc-external_sql_1_2bbf86641222
 PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker logs 31
+PS C:\Users\AdminTechDays> docker logs 08
 Initializing...
 Starting Container
-Hostname is 31b3b4fb1a1f
-PublicDnsName is 31b3b4fb1a1f
+Hostname is 086bf0072d2d
+PublicDnsName is 086bf0072d2d
 Using Windows Authentication
 Starting Internet Information Server
 Import Encryption Key
@@ -303,219 +587,52 @@ Starting NAV Service Tier
 Creating DotNetCore Web Server Instance
 Creating http download site
 Creating Windows user AdminTechDays
-Container IP Address: 172.18.3.140
-Container Hostname  : 31b3b4fb1a1f
-Container Dns Name  : 31b3b4fb1a1f
-Web Client          : http://31b3b4fb1a1f/NAV/
-Dev. Server         : http://31b3b4fb1a1f
+Container IP Address: 172.27.163.28
+Container Hostname  : 086bf0072d2d
+Container Dns Name  : 086bf0072d2d
+Web Client          : http://086bf0072d2d/NAV/
+Dev. Server         : http://086bf0072d2d
 Dev. ServerInstance : NAV
 
 Files:
-http://31b3b4fb1a1f:8080/al-0.12.28462.vsix
+http://086bf0072d2d:8080/al-0.12.28462.vsix
 
-You are running a container which is 76 days old.
+You are running a container which is 78 days old.
 Microsoft recommends that you always run the latest version of our containers.
 
-Initialization took 31 seconds
+Initialization took 34 seconds
 Ready for connections!
-PS C:\Users\AdminTechDays\dockerfiles\bc-external> docker logs 4b
-Initializing...
-Starting Container
-Hostname is 4b38889c11e6
-PublicDnsName is 4b38889c11e6
-Using Windows Authentication
-Starting Internet Information Server
-Import Encryption Key
-Modifying Service Tier Config File with Instance Specific Settings
-Starting NAV Service Tier
-Creating DotNetCore Web Server Instance
-Creating http download site
-Creating Windows user AdminTechDays
-Container IP Address: 172.18.2.221
-Container Hostname  : 4b38889c11e6
-Container Dns Name  : 4b38889c11e6
-Web Client          : http://4b38889c11e6/NAV/
-Dev. Server         : http://4b38889c11e6
-Dev. ServerInstance : NAV
-
-Files:
-http://4b38889c11e6:8080/al-0.12.28462.vsix
-
-You are running a container which is 76 days old.
-Microsoft recommends that you always run the latest version of our containers.
-
-Initialization took 32 seconds
-Ready for connections!
-PS C:\Users\AdminTechDays\dockerfiles\bc-external>
 ```
-## Example 3: Change ports
-Create a new BC sandbox container with port 7050 for the developer services and disabled SSL so that we don't have to tinker with cert files
+To make this available externally we can map the ports by adding the following to all nav services, mapping port 80 to 80 (prod), 8080 (staging) and 8081 (test) on the host
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e developerServicesPort=7050 microsoft/bcsandbox:us
-Initializing...
-Starting Container
-Hostname is 7186f3f519bb
-PublicDnsName is 7186f3f519bb
-Using NavUserPassword Authentication
-Starting Local SQL Server
-Starting Internet Information Server
-Creating Self Signed Certificate
-Self Signed Certificate Thumbprint 3544BA82651F0B0F1D2E6A1AAF5CE4D2BE3201EA
-Modifying Service Tier Config File with Instance Specific Settings
-Starting Service Tier
-Creating DotNetCore Web Server Instance
-Enabling Financials User Experience
-Creating http download site
-Creating Windows user admin
-Setting SA Password and enabling SA
-Creating admin as SQL User and add to sysadmin
-Creating SUPER user
-Container IP Address: 172.29.90.253
-Container Hostname  : 7186f3f519bb
-Container Dns Name  : 7186f3f519bb
-Web Client          : http://7186f3f519bb/NAV/
-Admin Username      : admin
-Admin Password      : Ciro9165
-Dev. Server         : http://7186f3f519bb
-Dev. ServerInstance : NAV
-
-Files:
-http://7186f3f519bb:8080/al-2.0.48254.vsix
-
-Initialization took 73 seconds
-Ready for connections!
+  nav:
+    ports:
+      - 80:80
+  ...
+  nav-staging:
+    ports:
+      - 8080:80
+  ...
+  nav-test:
+    ports:
+      - 8081:80
 ```
-Download http://7186f3f519bb:8080/al-2.0.48254.vsix and install it in VS Code. Run command "AL: Go!" in VS code and select "Your own server" when asked to choose a server. Change the server in launch.json to http://7186f3f519bb, add a new setting for port 7050 and set the serverInstance to NAV
-```JSON
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "al",
-            "request": "launch",
-            "name": "Your own server",
-            "server": "http://7186f3f519bb",
-            "port": 7050,
-            "serverInstance": "NAV",
-            "authentication": "UserPassword",
-            "startupObjectId": 22,
-            "startupObjectType": "Page",
-            "breakOnError": true
-        }
-    ]
-}
-```
-Hit F5 to publish your application and enter the username and password from your container log
-## Example 4: Bring your own licensefile
-Share your licensefile somewhere accessible and add that URL as env param to your docker run command. We are also enabling ClickOnce for easy access to the license information through C/SIDE
+Call `compose up` again and switch to the small VM to try connecting to http://tdbig/nav (prod), http://tdbig:8080/nav (staging) and http://tdbig:8081/nav (test)  
+To make differentiation easier, you could also make different product names:
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e licensefile=https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf -e clickonce=y mcr.microsoft.com/businesscentral/onprem
-Unable to find image 'mcr.microsoft.com/businesscentral/onprem:latest' locally
-latest: Pulling from businesscentral/onprem
-3889bb8d808b: Already exists
-6631c2d2a60c: Already exists
-b09a40692579: Already exists
-4c7043fb7dcf: Already exists
-441033c6fa66: Already exists
-5c137b6fb78e: Already exists
-c5690c9b6567: Already exists
-783086f9dfcf: Already exists
-eec8ca706f18: Already exists
-2fa2abf24848: Already exists
-af0072000551: Already exists
-1dc934206b95: Already exists
-f89b887cfa8c: Already exists
-037a25574f02: Already exists
-844f63f71ea9: Already exists
-471567da4404: Already exists
-d5a84de5a425: Already exists
-d5e80be3d5de: Already exists
-Digest: sha256:87ff32982ddd6357e61c7924e3f67cc979e9ff02bebb9624a462498b48eabbfe
-Status: Downloaded newer image for mcr.microsoft.com/businesscentral/onprem:latest
-Initializing...
-Starting Container
-Hostname is 74bd7bd18296
-PublicDnsName is 74bd7bd18296
-Using NavUserPassword Authentication
-Starting Local SQL Server
-Starting Internet Information Server
-Creating Self Signed Certificate
-Self Signed Certificate Thumbprint 0D1FCCEA03D4545106C92042D461C8005FB03149
-Modifying Service Tier Config File with Instance Specific Settings
-Starting NAV Service Tier
-Downloading license file 'https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf'
-Import License
-Creating DotNetCore Web Server Instance
-Creating http download site
-Creating Windows user admin
-Setting SA Password and enabling SA
-Creating admin as SQL User and add to sysadmin
-Creating SUPER user
-Creating ClickOnce Manifest
-Container IP Address: 172.29.83.174
-Container Hostname  : 74bd7bd18296
-Container Dns Name  : 74bd7bd18296
-Web Client          : https://74bd7bd18296/NAV/
-NAV Admin Username  : admin
-NAV Admin Password  : Gogi0605
-Dev. Server         : https://74bd7bd18296
-Dev. ServerInstance : NAV
-ClickOnce Manifest  : http://74bd7bd18296:8080/NAV
-
-Files:
-http://74bd7bd18296:8080/al-2.0.43900.vsix
-http://74bd7bd18296:8080/certificate.cer
-
-You are running a container which is 72 days old.
-Microsoft recommends that you always run the latest version of our containers.
-
-Initialization took 119 seconds
-Ready for connections!
+  nav:
+    environment:
+    ...
+    - customWebSettings=ProductName=Prod
+  ...
+  nav-staging:
+    environment:
+    ...
+    - customWebSettings=ProductName=Staging
+  ...
+  nav-test:
+    environment:
+    ...
+    - customWebSettings=ProductName=Test
 ```
-Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and use them to get the license information
-## Example 5: custom NST and Web settings
-Configure the container to disable Excel export (NST setting) and change the name of the product visible in the Web Client (Web setting)
-```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e customNavSettings=EnableSaveToExcelForRdlcReports=false -e customWebSettings=Productname=TechDays mcr.microsoft.com/businesscentral/onprem
-Initializing...
-Starting Container
-Hostname is b3314515b95a
-PublicDnsName is b3314515b95a
-Using NavUserPassword Authentication
-Starting Local SQL Server
-Starting Internet Information Server
-Creating Self Signed Certificate
-Self Signed Certificate Thumbprint 094F29D88730E55261105D3A14B4806238628DD1
-Modifying Service Tier Config File with Instance Specific Settings
-Modifying Service Tier Config File with settings from environment variable
-Setting EnableSaveToExcelForRdlcReports to false
-Starting NAV Service Tier
-Creating DotNetCore Web Server Instance
-Modifying Web Client config with settings from environment variable
-Creating Productname and setting it to TechDays
-Creating http download site
-Creating Windows user admin
-Setting SA Password and enabling SA
-Creating admin as SQL User and add to sysadmin
-Creating SUPER user
-Container IP Address: 172.29.89.63
-Container Hostname  : b3314515b95a
-Container Dns Name  : b3314515b95a
-Web Client          : https://b3314515b95a/NAV/
-NAV Admin Username  : admin
-NAV Admin Password  : Kaga9565
-Dev. Server         : https://b3314515b95a
-Dev. ServerInstance : NAV
-
-Files:
-http://b3314515b95a:8080/al-2.0.43900.vsix
-http://b3314515b95a:8080/certificate.cer
-
-You are running a container which is 74 days old.
-Microsoft recommends that you always run the latest version of our containers.
-
-Initialization took 63 seconds
-Ready for connections!
-```
-- Open the WebClient at https://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
-- Take an arbitrary report, open the request page and check the send to menu --> should not include Excel
+Again call `compose up` on the host and refresh the connect from the small machine to see the change
