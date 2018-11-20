@@ -1,6 +1,6 @@
 ## 6 Dockerfiles
 ### Example 1: Apache image
-Download files from [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/tfenster/presentations/tree/master/docs/201811-techdaysdockerws/src/dockerfiles) and extract them to c:\users\admintechdays  
+Download files from [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/tfenster/presentations/tree/master/docs/201811-techdaysdockerws/src/dockerfiles) or if that doesn't work from [here](https://ve.link/td18) (use "download" in the top left corner) and extract them to c:\users\admintechdays  
 Download and install Visual Studio Code from [here](https://code.visualstudio.com/download)  
 Open the downloaded folder in VS Code  
 Go to apache-http, open the Dockerfile and follow the VS Code recommendation to install the Docker extension including a restart for VS Code in the end  
