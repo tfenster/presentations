@@ -169,7 +169,8 @@ Initialization took 63 seconds
 Ready for connections!
 ```
 - Open the WebClient at https://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
-- Take an arbitrary report, open the request page and check the send to menu --> should not include Excel
+- Take an arbitrary report, open the request page and check the send to menu --> should not include Excel  
+
 ### Example 4: Use Windows authentication and enable ClickOnce
 Start a container with windows auth, give it your local username and password and enable ClickOnce
 ```PowerShell
