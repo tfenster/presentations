@@ -2,7 +2,7 @@
 ### Example 1: Change ports
 Create a new BC sandbox container with port 7050 for the developer services and disabled SSL so that we don't have to tinker with cert files
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e developerServicesPort=7050 microsoft/bcsandbox:us
+PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e usessl=n -e developerServicesPort=7050 microsoft/bcsandbox:us
 Initializing...
 Starting Container
 Hostname is 7186f3f519bb
@@ -60,7 +60,7 @@ Hit F5 to publish your application and enter the username and password from your
 ### Example 2: Bring your own licensefile
 Share your licensefile somewhere accessible and add that URL as env param to your docker run command. We are also enabling ClickOnce for easy access to the license information through C/SIDE
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e licensefile=https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf -e clickonce=y mcr.microsoft.com/businesscentral/onprem
+PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e usessl=n -e licensefile=https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf -e clickonce=y mcr.microsoft.com/businesscentral/onprem
 Unable to find image 'mcr.microsoft.com/businesscentral/onprem:latest' locally
 latest: Pulling from businesscentral/onprem
 3889bb8d808b: Already exists
@@ -127,7 +127,7 @@ Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and 
 ### Example 3: custom NST and Web settings
 Configure the container to disable Excel export (NST setting) and change the name of the product visible in the Web Client (Web setting)
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e customNavSettings=EnableSaveToExcelForRdlcReports=false -e customWebSettings=Productname=TechDays mcr.microsoft.com/businesscentral/onprem
+PS C:\Users\AdminTechDays> docker run -e usessl=n -e accept_eula=y -e customNavSettings=EnableSaveToExcelForRdlcReports=false -e customWebSettings=Productname=TechDays mcr.microsoft.com/businesscentral/onprem
 Initializing...
 Starting Container
 Hostname is b3314515b95a
