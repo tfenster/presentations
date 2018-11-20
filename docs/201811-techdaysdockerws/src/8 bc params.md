@@ -1,129 +1,5 @@
 ## 8 Business Central parameters
-### Example 1: Change ports
-Create a new BC sandbox container with port 7050 for the developer services and disabled SSL so that we don't have to tinker with cert files
-```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e usessl=n -e developerServicesPort=7050 microsoft/bcsandbox:us
-Initializing...
-Starting Container
-Hostname is 7186f3f519bb
-PublicDnsName is 7186f3f519bb
-Using NavUserPassword Authentication
-Starting Local SQL Server
-Starting Internet Information Server
-Creating Self Signed Certificate
-Self Signed Certificate Thumbprint 3544BA82651F0B0F1D2E6A1AAF5CE4D2BE3201EA
-Modifying Service Tier Config File with Instance Specific Settings
-Starting Service Tier
-Creating DotNetCore Web Server Instance
-Enabling Financials User Experience
-Creating http download site
-Creating Windows user admin
-Setting SA Password and enabling SA
-Creating admin as SQL User and add to sysadmin
-Creating SUPER user
-Container IP Address: 172.29.90.253
-Container Hostname  : 7186f3f519bb
-Container Dns Name  : 7186f3f519bb
-Web Client          : http://7186f3f519bb/NAV/
-Admin Username      : admin
-Admin Password      : Ciro9165
-Dev. Server         : http://7186f3f519bb
-Dev. ServerInstance : NAV
-
-Files:
-http://7186f3f519bb:8080/al-2.0.48254.vsix
-
-Initialization took 73 seconds
-Ready for connections!
-```
-Download http://7186f3f519bb:8080/al-2.0.48254.vsix and install it in VS Code. Run command "AL: Go!" in VS code and select "Your own server" when asked to choose a server. Change the server in launch.json to http://7186f3f519bb, add a new setting for port 7050 and set the serverInstance to NAV
-```JSON
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "al",
-            "request": "launch",
-            "name": "Your own server",
-            "server": "http://7186f3f519bb",
-            "port": 7050,
-            "serverInstance": "NAV",
-            "authentication": "UserPassword",
-            "startupObjectId": 22,
-            "startupObjectType": "Page",
-            "breakOnError": true
-        }
-    ]
-}
-```
-Hit F5 to publish your application and enter the username and password from your container log
-### Example 2: Bring your own licensefile
-Share your licensefile somewhere accessible and add that URL as env param to your docker run command. We are also enabling ClickOnce for easy access to the license information through C/SIDE
-```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e usessl=n -e licensefile=https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf -e clickonce=y mcr.microsoft.com/businesscentral/onprem
-Unable to find image 'mcr.microsoft.com/businesscentral/onprem:latest' locally
-latest: Pulling from businesscentral/onprem
-3889bb8d808b: Already exists
-6631c2d2a60c: Already exists
-b09a40692579: Already exists
-4c7043fb7dcf: Already exists
-441033c6fa66: Already exists
-5c137b6fb78e: Already exists
-c5690c9b6567: Already exists
-783086f9dfcf: Already exists
-eec8ca706f18: Already exists
-2fa2abf24848: Already exists
-af0072000551: Already exists
-1dc934206b95: Already exists
-f89b887cfa8c: Already exists
-037a25574f02: Already exists
-844f63f71ea9: Already exists
-471567da4404: Already exists
-d5a84de5a425: Already exists
-d5e80be3d5de: Already exists
-Digest: sha256:87ff32982ddd6357e61c7924e3f67cc979e9ff02bebb9624a462498b48eabbfe
-Status: Downloaded newer image for mcr.microsoft.com/businesscentral/onprem:latest
-Initializing...
-Starting Container
-Hostname is 74bd7bd18296
-PublicDnsName is 74bd7bd18296
-Using NavUserPassword Authentication
-Starting Local SQL Server
-Starting Internet Information Server
-Creating Self Signed Certificate
-Self Signed Certificate Thumbprint 0D1FCCEA03D4545106C92042D461C8005FB03149
-Modifying Service Tier Config File with Instance Specific Settings
-Starting NAV Service Tier
-Downloading license file 'https://dl.dropboxusercontent.com/s/u0pop17ruouk8xl/BCDev20181012.flf'
-Import License
-Creating DotNetCore Web Server Instance
-Creating http download site
-Creating Windows user admin
-Setting SA Password and enabling SA
-Creating admin as SQL User and add to sysadmin
-Creating SUPER user
-Creating ClickOnce Manifest
-Container IP Address: 172.29.83.174
-Container Hostname  : 74bd7bd18296
-Container Dns Name  : 74bd7bd18296
-Web Client          : http://74bd7bd18296/NAV/
-NAV Admin Username  : admin
-NAV Admin Password  : Gogi0605
-Dev. Server         : http://74bd7bd18296
-Dev. ServerInstance : NAV
-ClickOnce Manifest  : http://74bd7bd18296:8080/NAV
-
-Files:
-http://74bd7bd18296:8080/al-2.0.43900.vsix
-
-You are running a container which is 72 days old.
-Microsoft recommends that you always run the latest version of our containers.
-
-Initialization took 119 seconds
-Ready for connections!
-```
-Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and use them to get the license information. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site as otherwise C/SIDE will fail to install
-### Example 3: custom NST and Web settings
+### Example 1: custom NST and Web settings
 Configure the container to disable Excel export (NST setting) and change the name of the product visible in the Web Client (Web setting)
 ```PowerShell
 PS C:\Users\AdminTechDays> docker run -e usessl=n -e accept_eula=y -e customNavSettings=EnableSaveToExcelForRdlcReports=false -e customWebSettings=Productname=TechDays mcr.microsoft.com/businesscentral/onprem
@@ -169,7 +45,7 @@ Ready for connections!
 - Open the WebClient at http://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
 - Take an arbitrary report, open the request page and check the send to menu --> should not include Excel  
 
-### Example 4: Use Windows authentication and enable ClickOnce
+### Example 2: Use Windows authentication and enable ClickOnce
 Start a container with windows auth, give it your local username and password and enable ClickOnce
 ```PowerShell
 PS C:\Users\AdminTechDays\dockerfiles> docker run -e accept_eula=y -e auth=windows -e username=AdminTechDays -e password=Passw0rd*123 -e clickonce=y microsoft/dynamics-nav:2018-gb
@@ -231,9 +107,9 @@ Microsoft recommends that you always run the latest version of our containers.
 Initialization took 80 seconds
 Ready for connections!
 ```
-Test SSO by opening http://4327d66c1e57/NAV/ in your browser and install the Windows Client by going to http://4327d66c1e57:8080/NAV with IE and install it through ClickOnce. You can also install and use C/SIDE through ClickOnce including table schema syncs as we are using win auth. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site if you haven't already done that in example 2. Connect it to 4327d66c1e57 as server  
+Test SSO by opening http://4327d66c1e57/NAV/ in your browser and install the Windows Client by going to http://4327d66c1e57:8080/NAV with IE and install it through ClickOnce. You can also install and use C/SIDE through ClickOnce including table schema syncs as we are using win auth. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site. Connect it to 4327d66c1e57 as server  
 Don't stop the container as we'll use the database in the next example
-### Example 5: Connect the container to an external SQL Server
+### Example 3: Connect the container to an external SQL Server
 We want to use the database from our previous container, so let's enter it and stop SQL server so that we can savely copy the files. If you skipped example 4, then you need to run a new container based on microsoft/dynamics-nav:2018-gb
 ```PowerShell
 PS C:\Users\AdminTechDays> docker exec -ti 43 powershell
