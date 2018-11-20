@@ -106,16 +106,15 @@ Creating ClickOnce Manifest
 Container IP Address: 172.29.83.174
 Container Hostname  : 74bd7bd18296
 Container Dns Name  : 74bd7bd18296
-Web Client          : https://74bd7bd18296/NAV/
+Web Client          : http://74bd7bd18296/NAV/
 NAV Admin Username  : admin
 NAV Admin Password  : Gogi0605
-Dev. Server         : https://74bd7bd18296
+Dev. Server         : http://74bd7bd18296
 Dev. ServerInstance : NAV
 ClickOnce Manifest  : http://74bd7bd18296:8080/NAV
 
 Files:
 http://74bd7bd18296:8080/al-2.0.43900.vsix
-http://74bd7bd18296:8080/certificate.cer
 
 You are running a container which is 72 days old.
 Microsoft recommends that you always run the latest version of our containers.
@@ -123,7 +122,7 @@ Microsoft recommends that you always run the latest version of our containers.
 Initialization took 119 seconds
 Ready for connections!
 ```
-Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and use them to get the license information
+Go to http://74bd7bd18296:8080/NAV and install C/SIDE or the Windows Client and use them to get the license information. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site as otherwise C/SIDE will fail to install
 ### Example 3: custom NST and Web settings
 Configure the container to disable Excel export (NST setting) and change the name of the product visible in the Web Client (Web setting)
 ```PowerShell
@@ -152,15 +151,14 @@ Creating SUPER user
 Container IP Address: 172.29.89.63
 Container Hostname  : b3314515b95a
 Container Dns Name  : b3314515b95a
-Web Client          : https://b3314515b95a/NAV/
+Web Client          : http://b3314515b95a/NAV/
 NAV Admin Username  : admin
 NAV Admin Password  : Kaga9565
-Dev. Server         : https://b3314515b95a
+Dev. Server         : http://b3314515b95a
 Dev. ServerInstance : NAV
 
 Files:
 http://b3314515b95a:8080/al-2.0.43900.vsix
-http://b3314515b95a:8080/certificate.cer
 
 You are running a container which is 74 days old.
 Microsoft recommends that you always run the latest version of our containers.
@@ -168,7 +166,7 @@ Microsoft recommends that you always run the latest version of our containers.
 Initialization took 63 seconds
 Ready for connections!
 ```
-- Open the WebClient at https://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
+- Open the WebClient at http://b3314515b95a/NAV/ and check the product name (top left corner) --> should be "TechDays"
 - Take an arbitrary report, open the request page and check the send to menu --> should not include Excel  
 
 ### Example 4: Use Windows authentication and enable ClickOnce
@@ -233,10 +231,10 @@ Microsoft recommends that you always run the latest version of our containers.
 Initialization took 80 seconds
 Ready for connections!
 ```
-Test SSO by opening http://4327d66c1e57/NAV/ in your browser and install the Windows Client by going to http://4327d66c1e57:8080/NAV with IE and install it through ClickOnce. You can also install and use C/SIDE through ClickOnce including table schema syncs as we are using win auth. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site. Connect it to 4327d66c1e57 as server  
+Test SSO by opening http://4327d66c1e57/NAV/ in your browser and install the Windows Client by going to http://4327d66c1e57:8080/NAV with IE and install it through ClickOnce. You can also install and use C/SIDE through ClickOnce including table schema syncs as we are using win auth. Make sure to install the Visual C++ 2013 Redistributable (x86) from https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x86.exe and the SQL native client from the ClickOnce site if you haven't already done that in example 2. Connect it to 4327d66c1e57 as server  
 Don't stop the container as we'll use the database in the next example
 ### Example 5: Connect the container to an external SQL Server
-We want to use the database from our previous container, so let's enter it and stop SQL server so that we can savely copy the files
+We want to use the database from our previous container, so let's enter it and stop SQL server so that we can savely copy the files. If you skipped example 4, then you need to run a new container based on microsoft/dynamics-nav:2018-gb
 ```PowerShell
 PS C:\Users\AdminTechDays> docker exec -ti 43 powershell
 Windows PowerShell

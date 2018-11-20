@@ -41,7 +41,7 @@ Ready for connections!
 ## Example 2: Download script from GitHub to activate APIs
 The zip contains an AdditionalSetup.ps1 which runs COD5465 and that initializes the API ([see here](https://github.com/tfenster/nav-docker-samples/blob/initialize-api/))
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e accept_eula=y -e customNavSettings="ApiServicesEnabled=true" -e folders="c:\run\my=https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip\nav-docker-samples-initialize-api" microsoft/dynamics-nav:2018-gb
+PS C:\Users\AdminTechDays> docker run -e usessl=n -e accept_eula=y -e customNavSettings="ApiServicesEnabled=true" -e folders="c:\run\my=https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip\nav-docker-samples-initialize-api" microsoft/dynamics-nav:2018-gb
 Setting up folders...
 Downloading https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip to c:\run\my
 Extracting file in temp folder
@@ -72,16 +72,15 @@ initialize API Services
 Container IP Address: 172.29.93.34
 Container Hostname  : c9ab8d3bcc03
 Container Dns Name  : c9ab8d3bcc03
-Web Client          : https://c9ab8d3bcc03/NAV/
+Web Client          : http://c9ab8d3bcc03/NAV/
 NAV Admin Username  : admin
 NAV Admin Password  : Toze1005
-Dev. Server         : https://c9ab8d3bcc03
+Dev. Server         : http://c9ab8d3bcc03
 Dev. ServerInstance : NAV
 
 Files:
 http://c9ab8d3bcc03:8080/accessdata.html
 http://c9ab8d3bcc03:8080/al-0.12.28462.vsix
-http://c9ab8d3bcc03:8080/certificate.cer
 
 You are running a container which is 74 days old.
 Microsoft recommends that you always run the latest version of our containers.
