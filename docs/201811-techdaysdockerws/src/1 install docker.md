@@ -96,3 +96,4 @@ Status: Downloaded newer image for microsoft/dotnet-samples:dotnetapp-nanoserver
 Platform: .NET Core
 OS: Microsoft Windows 10.0.14393
 ```
+To be quicker for the next samples, please download the script from [here](http://tfenster.github.io/presentations/201811-techdaysdockerws/src/pullall.bat) and run it as this will pull all necessary images
