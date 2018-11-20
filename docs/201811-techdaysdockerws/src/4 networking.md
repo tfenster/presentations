@@ -48,7 +48,7 @@ Ethernet adapter Ethernet 2:
    Default Gateway . . . . . . . . . : 10.1.1.1
 ```
 Open RDP to the second, smaller machine (I'll call it "client" as differentiation from the other machine called "host")  
-Disable IE enhanced security through the Server admin console  
+Disable IE enhanced security through the Server admin console or by running `Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 00000000`   
 Open http://&lt;host-ip&gt; in IE, in my case http://10.1.1.5 --> you should see a connection error 
 ### Scenario 2: Port mapping
 Switch back to the host, stop the IIS container and start it again with port 80 mapped to the host
