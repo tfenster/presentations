@@ -39,7 +39,7 @@ Ready for connections!
 - Create a .NET variable, go to the Assembly List and see "RestSharp" in the Server tab
 
 ## Example 2: Download script from GitHub to activate APIs
-The zip contains an AdditionalSetup.ps1 which runs COD5465 and that initializes the API ([see here](https://github.com/tfenster/nav-docker-samples/blob/initialize-api/))
+The zip contains an AdditionalSetup.ps1 which runs COD5465 and that initializes the API ([see here](https://github.com/tfenster/nav-docker-samples/blob/initialize-api/AdditionalSetup.ps1))
 ```PowerShell
 PS C:\Users\AdminTechDays> docker run -e usessl=n -e accept_eula=y -e customNavSettings="ApiServicesEnabled=true" -e folders="c:\run\my=https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip\nav-docker-samples-initialize-api" microsoft/dynamics-nav:2018-gb
 Setting up folders...
