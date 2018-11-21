@@ -41,7 +41,7 @@ Ready for connections!
 ## Example 2: Download script from GitHub to activate APIs
 The zip contains an AdditionalSetup.ps1 which runs COD5465 and that initializes the API ([see here](https://github.com/tfenster/nav-docker-samples/blob/initialize-api/AdditionalSetup.ps1))
 ```PowerShell
-PS C:\Users\AdminTechDays> docker run -e usessl=n --name api --hostname api -e accept_eula=y -e customNavSettings="ApiServicesEnabled=true" -e folders="c:\run\my=https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip\nav-docker-samples-initialize-api" microsoft/dynamics-nav:2018-gb
+PS C:\Users\AdminTechDays> docker run -e usessl=n --name api --hostname api -e accept_eula=y -e customNavSettings="ApiServicesEnabled=true" -e folders="c:\run\my=https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip\nav-docker-samples-initialize-api" mcr.microsoft.com/businesscentral/onprem
 Setting up folders...
 Downloading https://github.com/tfenster/nav-docker-samples/archive/initialize-api.zip to c:\run\my
 Extracting file in temp folder
