@@ -28,11 +28,11 @@ Successfully tagged mybc:latest
 ```
 Use that image with the same parameters as before (see [here](https://tfenster.github.io/presentations/201811-techdaysdockerws/src/9 bc files), example 2) but don't reference the additional script through the folders param as it now is part of the image
 ```PowerShell
-PS C:\Users\AdminTechDays\dockerfiles\db-persistence> docker run -e usessl=n -e accept_eula=y -e customNavSettings="ApiServicesEnabled=true" mybc
+PS C:\Users\AdminTechDays\dockerfiles\db-persistence> docker run -e usessl=n -e accept_eula=y --name api2 --hostname api2 -e customNavSettings="ApiServicesEnabled=true" mybc
 Initializing...
 Starting Container
-Hostname is 6111771493a1
-PublicDnsName is 6111771493a1
+Hostname is api2
+PublicDnsName is api2
 Using NavUserPassword Authentication
 Starting Local SQL Server
 Starting Internet Information Server
@@ -52,16 +52,16 @@ Welcome to the NAV Container PowerShell prompt
 
 initialize API Services
 Container IP Address: 172.29.93.34
-Container Hostname  : 6111771493a1
-Container Dns Name  : 6111771493a1
-Web Client          : http://6111771493a1/NAV/
+Container Hostname  : api2
+Container Dns Name  : api2
+Web Client          : http://api2/NAV/
 NAV Admin Username  : admin
 NAV Admin Password  : Toze1005
-Dev. Server         : http://6111771493a1
+Dev. Server         : http://api2
 Dev. ServerInstance : NAV
 
 Files:
-http://6111771493a1:8080/al-0.12.28462.vsix
+http://api2:8080/al-0.12.28462.vsix
 
 Microsoft recommends that you always run the latest version of our containers.
 
