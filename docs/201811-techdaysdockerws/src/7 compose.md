@@ -4,8 +4,8 @@ Download docker compose from github
 PS C:\Users\AdminTechDays\dockerfiles> [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 PS C:\Users\AdminTechDays\dockerfiles> Invoke-WebRequest "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-Windows-x86_64.exe" -UseBasicParsing -OutFile $Env:ProgramFiles\docker\docker-compose.exe
 ```
-Open signup/docker-compose.yml in VS Code and inspect it
-Right click docker-compose.yml --> Compose Up
+Open signup/docker-compose.yml in VS Code and inspect it  
+Then right click docker-compose.yml --> Compose Up
 ```PowerShell
 Windows PowerShell
 Copyright (C) 2016 Microsoft Corporation. All rights reserved.
