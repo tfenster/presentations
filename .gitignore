@@ -1,1 +1,4 @@
 2018-11 techdays docker workshop/scripts/~$Teilnehmer und Scripts.xlsx
+terraform.tfstate
+terraform.tfstate.backup
+.terraform
